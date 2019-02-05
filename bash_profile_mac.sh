@@ -29,6 +29,7 @@ function openw() { open "http://$@"; }
 
 #git
 function openghub() { open $(git remote get-url ${1:-origin}) ;}
+function cloneghub() { git clone https://github.com/${2:-semklauke}/${1} ; }
 
 
 #University (changes every semester)
@@ -49,6 +50,9 @@ function bk-switch {
 		echo  "Switch to Server"; projects barkeeper; cd bk-server;
 	fi;
 }
+
+#2048
+alias bash2048="/Users/semklauke/Documents/Develompent/GitHub/Bash2048/test.sh"
 
 #tooling
 function tool() { ~/tools/$@.sh; }
