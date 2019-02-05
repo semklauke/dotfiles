@@ -2,6 +2,7 @@
 export PATH=${PATH}:/usr/local/mysql/bin
 export PATH=${PATH}:/usr/local/bin/
 export PATH="$HOME/.cargo/bin:$PATH"
+export PS1='\[\033[00m\]\u\[\033[00m\]@\[\033[00m\]\h\[\033[00m\]:\[\033[00;34m\]\w\[\033[00;31m\] \$\[\033[00m\] '
 
 # Screen Saver
 alias screensaver='open /System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app'
