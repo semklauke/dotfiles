@@ -32,14 +32,11 @@ function openghub() { open $(git remote get-url ${1:-origin}) ;}
 function cloneghub() { git clone https://github.com/${2:-semklauke}/${1} ; }
 
 
-#University (changes every semester)
-alias uni="cd /Users/semklauke/Dropbox/UNI/3-Semester"
-alias uni-progra="cd /Users/semklauke/Dropbox/UNI/3-Semester/Programmierung"
-alias uni-bus="cd /Users/semklauke/Dropbox/UNI/2-Semester/Betriebssysteme\ und\ Systemsoftware"
-alias uni-dsal="cd /Users/semklauke/Dropbox/UNI/2-Semester/Datenstrukturen\ und\ Algorithmen"
-alias uni-fosap="cd /Users/semklauke/Dropbox/UNI/2-Semester/FoSAP"
-alias uni-la="cd /Users/semklauke/Dropbox/UNI/2-Semester/Lineare\ Algebra"
-alias uni-stochastik="cd /Users/semklauke/Dropbox/UNI/2-Semester/Stochastik"
+#University
+if [ -f ~/.fast_directory_switch_uni.sh ]; then
+    . ~/.fast_directory_switch_uni.sh
+fi
+
 
 
 #barkeeper project
