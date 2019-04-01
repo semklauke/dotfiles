@@ -25,8 +25,8 @@ function getCourseFolderName() {
         proseminar)         echo "ProSem" ;;
         swt)                echo "Softwaretechnick" ;;
         dbis)               echo "Datenbanken und Informationssysteme" ;;
-        et2)                echo "Elektrotechnik\ 2" ;;
-        elektrotechnik2)    echo "Elektrotechnik\ 2" ;;
+        et2)                echo "Elektrotechnik 2" ;;
+        elektrotechnik2)    echo "Elektrotechnik 2" ;;
         psp)                echo "Praktikum Systemprogrammierung" ;;
         hpc)                echo "Soft.Praktikum" ;;
         softprak)           echo "Soft.Praktikum" ;;
@@ -62,6 +62,6 @@ function uni() {
 }
 
 alias uni-1="cd /Users/semklauke/Dropbox/UNI/1-Semester"
-alias uni-2="cd /Users/semklauke/Dropbox/UNI/1-Semester"
-alias uni-3="cd /Users/semklauke/Dropbox/UNI/1-Semester"
-alias uni-4="cd /Users/semklauke/Dropbox/UNI/1-Semester"
+alias uni-2="cd /Users/semklauke/Dropbox/UNI/2-Semester"
+alias uni-3="cd /Users/semklauke/Dropbox/UNI/3-Semester"
+alias uni-4="cd /Users/semklauke/Dropbox/UNI/4-Semester"
