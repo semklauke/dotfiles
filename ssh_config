@@ -1,0 +1,65 @@
+#Hosts 
+
+Host server
+HostName #ipv6 of server
+User semklauke
+
+Host serverv4
+HostName #ipv4 of server
+User semklauke
+
+Host mcv4
+HostName #ipv4 of server
+User minecraft
+
+Host mc
+HostName #ipv6 of server
+User minecraft
+
+Host steam
+HostName #ipv6 of server
+User steam
+
+# RWTH HPC CLUSTER
+Host rwth_hpc
+HostName login.hpc.itc.rwth-aachen.de
+User ih677896
+
+Host rwth_hpc2
+HostName login2.hpc.itc.rwth-aachen.de
+User ih677896
+
+Host rwth_hpc18-1
+HostName login18-1.hpc.itc.rwth-aachen.de
+User ih677896
+
+Host rwth_hpc18-2
+HostName login18-2.hpc.itc.rwth-aachen.de
+User ih677896
+
+Host rwth_hpc18-3
+HostName login18-3.hpc.itc.rwth-aachen.de
+User ih677896
+
+Host rwth_hpc18-4
+HostName login18-4.hpc.itc.rwth-aachen.de
+User ih677896
+
+Host rwth_lab
+HostName login18-1.hpc.itc.rwth-aachen.de
+User hpclab19
+
+Host rwth_hpcknl
+HostName login-knl.hpc.itc.rwth-aachen.de
+User ih677896
+
+#git
+Host git.rwth-aachen.de
+Preferredauthentications publickey
+IdentityFile ~/.ssh/git.rwth-aachen.de_id_rsa
+
+Host github.com
+AddKeysToAgent yes
+UseKeychain yes
+IdentityFile ~/.ssh/github.com_id_rsa
+Preferredauthentications publickey

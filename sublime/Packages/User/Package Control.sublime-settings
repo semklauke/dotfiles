@@ -1,0 +1,28 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"3024 Color Scheme",
+		"Autoprefixer",
+		"ayu",
+		"Bind Zone files",
+		"C Improved",
+		"Clang Format",
+		"INI",
+		"LESS",
+		"Origami",
+		"Package Control",
+		"Sass",
+		"SideBarEnhancements",
+		"SPARQL",
+		"SPARQL Runner",
+		"SublimeCodeIntel",
+		"Terminus",
+		"Theme - Monokai Pro",
+		"Turtle RDF Syntax",
+		"TypeScript"
+	]
+}

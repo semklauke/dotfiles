@@ -1,0 +1,26 @@
+[
+    // toggle terminal panel
+    { 
+        "keys": ["f3"], "command": "toggle_terminus_panel"
+    },
+    // open a terminal view at current file directory
+    { 
+        "keys": ["f4"], "command": "terminus_open", "args": {
+            "cwd": "${file_path:${folder}}"
+        }
+    },
+    // open terminal in a split view by usin
+    {
+        "keys": ["command+f4"],
+        "command": "terminus_open",
+        "args": {
+            "post_window_hooks": [
+                ["carry_file_to_pane", {"direction": "down"}]
+            ]
+        }
+    },
+    // ctrl-w to close terminal
+    { 
+        "keys": ["ctrl+w"], "command": "terminus_close", "context": [{ "key": "terminus_view"}]
+    }
+]

@@ -3,7 +3,7 @@
 # Also inbetween semester
 # 
 
-export CURRENT_SEMESTER=4;
+export CURRENT_SEMESTER=5;
 function getCourseFolderName() {
     case $1 in
         progra)             echo "Programmierung" ;;
@@ -23,6 +23,11 @@ function getCourseFolderName() {
         mechanik1)          echo "Mechanik 1" ;;
         prosem)             echo "ProSem" ;;
         proseminar)         echo "ProSem" ;;
+        sem)                echo "Seminar" ;;
+        seminar)            echo "Seminar" ;;
+        hpcsem)             echo "Seminar" ;;
+        cg)                 echo "Computer Graphics" ;;
+        cg1)                echo "Computer Graphics" ;;
         swt)                echo "Softwaretechnick" ;;
         dbis)               echo "Datenbanken und Informationssysteme" ;;
         et2)                echo "Elektrotechnik 2" ;;
@@ -32,6 +37,7 @@ function getCourseFolderName() {
         softprak)           echo "Soft.Praktikum" ;;
         softpraktikum)      echo "Soft.Praktikum" ;;
         sp)                 echo "Soft.Praktikum" ;;
+        
         *)                  echo "404" ;;
     esac
 }
@@ -65,3 +71,4 @@ alias uni-1="cd /Users/semklauke/Dropbox/UNI/1-Semester"
 alias uni-2="cd /Users/semklauke/Dropbox/UNI/2-Semester"
 alias uni-3="cd /Users/semklauke/Dropbox/UNI/3-Semester"
 alias uni-4="cd /Users/semklauke/Dropbox/UNI/4-Semester"
+alias uni-5="cd /Users/semklauke/Dropbox/UNI/5-Semester"

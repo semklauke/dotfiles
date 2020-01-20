@@ -1,0 +1,11 @@
+{
+	"256color": true,
+	"default_config":
+	{
+		"linux": "bash",
+		"osx": "bash",
+		"windows": "Command Prompt"
+	},
+	"theme": "monokai",
+	"unix_term": "xterm-256color"
+}

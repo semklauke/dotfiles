@@ -1,24 +1,2 @@
 #!/bin/bash
-sudo systemctl start nginx;
-FILES=/etc/nginx/semklauke.de/*.conf
-extension='.disable'
-for f in $FILES
-do
-	newName=$f$extension;
-	sudo mv $f $newName;
-done
-sudo cp /etc/nginx/letsencrypt.conf /etc/nginx/semklauke.de/letsencrypt.conf;
-sudo nginx -t;
-sudo systemctl reload nginx;
-sudo nginx -s reload;
-#
-# Do the lets encrypt thing
-#
-sudo rm -f /etc/nginx/semklauke.de/letsencrypt.conf;
-DISFILES=/etc/nginx/semklauke.de/*.disable
-for d in $DISFILES
-do
-	oldName=${d::-8};
-	sudo mv $d $oldName;
-done
-echo "----- DONE -----";
+sudo certbot renew --manual-auth-hook /etc/letsencrypt/renewal-hooks/auth/dns-auth.sh --manual-cleanup-hook /etc/letsencrypt/renewal-hooks/cleanup/dns-cleanup.sh

@@ -1,0 +1,23 @@
+[user]
+    email = 
+    name = semklauke
+[credential]
+    helper = osxkeychain
+[core]
+    editor = code -n -w
+    excludesfile = ~/.gitignore_global
+[color]
+    ui = auto
+[push]
+    default = simple
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+[alias]
+    co = checkout
+    c = commit
+    dc = diff --cached
+    l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+    ls = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --all --find-copies -M --stat
