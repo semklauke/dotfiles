@@ -48,8 +48,10 @@ function openw() { open "http://$@"; }
 
 #git
 function openghub() { open $(git remote get-url ${1:-origin}) ;}
-function cloneghub() { git clone https://github.com/${2:-semklauke}/${1} ; }
-
+function cloneghub() { git clone git@github.com:${1}.git ${2} ${3} ; }
+function ghubopen() { open $(git remote get-url ${1:-origin}) ;}
+function ghubclone() { git clone git@github.com:${1}.git ${2} ${3} ; }
+function github() { git clone git@github.com:semklauke/${1}.git ${2} ; }
 
 #University
 if [ -f ~/.bash/fast_directory_switch_uni.sh ]; then

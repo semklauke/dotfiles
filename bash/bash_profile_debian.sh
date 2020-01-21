@@ -42,7 +42,7 @@ function openghub() { open $(git remote get-url ${1:-origin}) ;}
 function cloneghub() { git clone git@github.com:${1}.git ${2} ${3} ; }
 function ghubopen() { open $(git remote get-url ${1:-origin}) ;}
 function ghubclone() { git clone git@github.com:${1}.git ${2} ${3} ; }
-
+function github() { git clone git@github.com:semklauke/${1}.git ${2} ; }
 
 #lang
 export LC_CTYPE=en_US.UTF-8
