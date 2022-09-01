@@ -71,8 +71,6 @@ alias tools='ls -l  ~/tools | awk '\''{ if (NR>1) print substr($9, 1, length($9)
 function load-rustup() { source ~/.oh-my-zsh/custom/rustup }
 
 # usefull
-alias rm="rm -i"
-alias mv="mv -i"
 alias zshrc="$EDITOR ~/.zshrc"
 
 
@@ -81,7 +79,6 @@ SSH_ENV="$HOME/.ssh/agent-environment"
 function start_agent {
     echo "Initialising new SSH agent..."
     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-    echo succeeded
     chmod 600 "${SSH_ENV}"
     . "${SSH_ENV}" > /dev/null
     /usr/bin/ssh-add;

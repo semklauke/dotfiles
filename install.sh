@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ## USAGE:
 ## ./install.sh <shell> <system> <?homefolder>
 ## shell = zsh | bash
@@ -35,19 +37,23 @@ install_file () {
     if [ -f "$to" ]; then
         if ! diff $from $to > $to.diff; then
             if [ $overwrite = "overwrite" ]; then
-                DIFF_FILES+=( $to.diff )
+                DIFF_FILES+=( "$to.diff" )
                 rm $to
                 cp $from $to
-                printf "> $2\t$(tput setaf 1)Overwritten.$(tput sgr0)\n"
+                printf "> $(tput setaf 1)Overwritten$(tput sgr0) $2\n"
                 printf "  See $to.diff\n"
             else
-                printf "> $2\t$(tput setaf 3)Keeing original.$(tput sgr0)\n"
+                printf "> $(tput setaf 3)Keeping$(tput cuf 4)$(tput sgr0) $2\n"
                 printf "  Replace manually with: cp -rf $from $to\n"
+                rm $to.diff
             fi
+        else
+            printf "> $(tput setaf 2)Installed$(tput cuf 2)$(tput sgr0) $2\n"
+            cp $from $to
         fi
     else
-        printf "> $2\t$(tput setaf 2)Installed.$(tput sgr0)\n"
-        cp $from to
+        printf "> $(tput setaf 2)Installed$(tput cuf 2)$(tput sgr0) $2\n"
+        cp $from $to
     fi
 }
 
@@ -60,7 +66,7 @@ case $INSTALL_SHELL in
             printf "Install Oh-my-zsh. Or the folder '$INSTALL_LOCATION/.oh-my-zsh/custom' is missing\n"
             exit 2
         fi
-        $ZSH_CUSTOM_DIR=.oh-my-zsh/custom
+        ZSH_CUSTOM_DIR=.oh-my-zsh/custom
 
         install_file .zshenv .zshenv
         install_file .zshrc .zshrc
@@ -72,14 +78,14 @@ case $INSTALL_SHELL in
 
         # install extern plugins
         if ! [ -d "$INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions" ]; then
-            git clone https://github.com/zsh-users/zsh-autosuggestions $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions > /dev/null
+            git clone -q https://github.com/zsh-users/zsh-autosuggestions $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions > /dev/null
         else
-            git -C $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions pull --ff-only > /dev/null
+            git -C $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions pull -q --ff-only > /dev/null
         fi
-        if ! [ -d "INSTALL_LOCATION/.oh-my-zsh/plugins/zsh-syntax-highlighting" ]; then
-            git clone https://github.com/zsh-users/zsh-syntax-highlighting.git > /dev/null
+        if ! [ -d "$INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-syntax-highlighting" ]; then
+            git clone -q https://github.com/zsh-users/zsh-syntax-highlighting.git $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-syntax-highlighting > /dev/null
         else
-            git -C $INSTALL_LOCATION/.oh-my-zsh/plugins/zsh-syntax-highlighting pull --ff-only > /dev/null
+            git -C $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-syntax-highlighting pull -q --ff-only > /dev/null
         fi
         ;;
 
@@ -106,7 +112,7 @@ install_file ../../vimrc .vimrc "keep"
 printf -- "$(tput bold)---- Done ----$(tput sgr0)\n"
 
 # show command to delete all diff files
-if [ ${#DIFF_FILES[@]} -gt 0 ]; then
+if ! [ ${#DIFF_FILES[@]} -eq 0 ]; then
     joined_diff_files=$(printf " %s" "${DIFF_FILES[@]}")
     
     printf -- "If you want to remove all of the .diff files execute\n"
