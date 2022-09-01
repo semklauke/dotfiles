@@ -25,20 +25,34 @@ if [ "$INSTALL_LOCATION" != "~" ]; then
 fi
 
 INSTALL_FROM=$(dirname "$0")/$INSTALL_SHELL/$INSTALL_SYSTEM
+DIFF_FILES=()
 
 install_file () {
     from=$INSTALL_FROM/$1
     to=$INSTALL_LOCATION/$2
+    overwrite=${3:-"overwrite"}
+
     if [ -f "$to" ]; then
         if ! diff $from $to > $to.diff; then
-            printf "REMOVED / CHANGED FROM $2:\n"
-            diff -u $from $to | grep '^\+' | sed -E 's/^\+//' | tail -n +2
-            printf -- "---- See $to.diff ----\n"
+            if [ $overwrite = "overwrite" ]; then
+                DIFF_FILES+=( $to.diff )
+                rm $to
+                cp $from $to
+                printf "> $2\t$(tput setaf 1)Overwritten.$(tput sgr0)\n"
+                printf "  See $to.diff\n"
+            else
+                printf "> $2\t$(tput setaf 3)Keeing original.$(tput sgr0)\n"
+                printf "  Replace manually with: cp -rf $from $to\n"
+            fi
         fi
+    else
+        printf "> $2\t$(tput setaf 2)Installed.$(tput sgr0)\n"
+        cp $from to
     fi
-    rm $to
-    cp $from $to
 }
+
+# start install
+printf -- "$(tput bold)---- Starting install in $INSTALL_LOCATION ----$(tput sgr0)\n"
 
 case $INSTALL_SHELL in
     zsh)
@@ -46,28 +60,24 @@ case $INSTALL_SHELL in
             printf "Install Oh-my-zsh. Or the folder '$INSTALL_LOCATION/.oh-my-zsh/custom' is missing\n"
             exit 2
         fi
+        $ZSH_CUSTOM_DIR=.oh-my-zsh/custom
 
         install_file .zshenv .zshenv
         install_file .zshrc .zshrc
-        install_file ../oh-my-zsh/rustup .oh-my-zsh/custom/rustup
-        install_file ../oh-my-zsh/sem.zsh-theme .oh-my-zsh/custom/themes/sem.zsh-theme
-        install_file ../../git/.gitconfig .gitconfig
-        install_file ../../git/.gitignore_global .gitignore_global
-        install_file ../../vimrc .vimrc
+        install_file ../oh-my-zsh/rustup $ZSH_CUSTOM_DIR/ustup
+        install_file ../oh-my-zsh/sem.zsh-theme $ZSH_CUSTOM_DIR/themes/sem.zsh-theme
         if [ "$INSTALL_SYSTEM" = "macos" ]; then
-            install_file ../oh-my-zsh/fast_directory_switch_uni.zsh .oh-my-zsh/custom/fast_directory_switch_uni.zsh
+            install_file ../oh-my-zsh/fast_directory_switch_uni.zsh $ZSH_CUSTOM_DIR/fast_directory_switch_uni.zsh
         fi
         # install plugins
-        git clone https://github.com/zsh-users/zsh-autosuggestions $INSTALL_LOCATION/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $INSTALL_LOCATION/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+        if ! [ -d "" ]
+        git clone https://github.com/zsh-users/zsh-autosuggestions $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $INSTALL_LOCATION/.oh-my-zsh/plugins/zsh-syntax-highlighting
         ;;
 
     bash)
         install_file .bash_profile .bash_profile
         install_file .bashrc .bashrc
-        install_file ../../git/.gitconfig .gitconfig
-        install_file ../../git/.gitignore_global .gitignore_global
-        install_file ../../vimrc .vimrc
         if [ "$INSTALL_SYSTEM" = "macos" ]; then
             mkdir -p $INSTALL_LOCATION/.bash
             install_file ../oh-my-zsh/fast_directory_switch_uni.zsh .bash/fast_directory_switch_uni.sh 
@@ -79,3 +89,18 @@ case $INSTALL_SHELL in
         exit 1
         ;;
 esac
+
+# install for both
+install_file ../../git/.gitconfig .gitconfig "keep"
+install_file ../../git/.gitignore_global .gitignore_global "overwrite"
+install_file ../../vimrc .vimrc "keep"
+
+printf -- "$(tput bold)---- Done ----$(tput sgr0)\n"
+
+# show command to delete all diff files
+if [ ${#DIFF_FILES[@]} -gt 0 ]; then
+    joined_diff_files=$(printf " %s" "${DIFF_FILES[@]}")
+    
+    printf -- "If you want to remove all of the .diff files execute\n"
+    printf "rm ${joined_diff_files:1}\n"
+fi
