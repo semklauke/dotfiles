@@ -33,7 +33,7 @@ install_file () {
         if ! diff $from $to > $to.diff; then
             printf "REMOVED / CHANGED FROM $2:\n"
             diff -u $from $to | grep '^\+' | sed -E 's/^\+//' | tail -n +2
-            printf "---- See $to.diff ----"
+            printf -- "---- See $to.diff ----\n"
         fi
     fi
     rm $to
@@ -43,7 +43,7 @@ install_file () {
 case $INSTALL_SHELL in
     zsh)
         if ! [ -d "$INSTALL_LOCATION/.oh-my-zsh/custom" ]; then
-            printf "Install Oh-my-zsh. Or the folder '$INSTALL_LOCATION/.oh-my-zsh/custom' is missing"
+            printf "Install Oh-my-zsh. Or the folder '$INSTALL_LOCATION/.oh-my-zsh/custom' is missing\n"
             exit 2
         fi
 
@@ -57,6 +57,9 @@ case $INSTALL_SHELL in
         if [ "$INSTALL_SYSTEM" = "macos" ]; then
             install_file ../oh-my-zsh/fast_directory_switch_uni.zsh .oh-my-zsh/custom/fast_directory_switch_uni.zsh
         fi
+        # install plugins
+        git clone https://github.com/zsh-users/zsh-autosuggestions $INSTALL_LOCATION/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $INSTALL_LOCATION/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
         ;;
 
     bash)
@@ -67,7 +70,7 @@ case $INSTALL_SHELL in
         install_file ../../vimrc .vimrc
         if [ "$INSTALL_SYSTEM" = "macos" ]; then
             mkdir -p $INSTALL_LOCATION/.bash
-            install_file ../oh-my-zsh/fast_directory_switch_uni.zsh .bash/fast_directory_switch_uni.sh
+            install_file ../oh-my-zsh/fast_directory_switch_uni.zsh .bash/fast_directory_switch_uni.sh 
         fi
         ;;
 
