@@ -13,11 +13,11 @@ USAGE_PROMT="Usage ./install.sh <shell> <system> <?homefolder>\n"\
 "- <system> must be 'macos' or 'debian'\n"\
 "- <homefolder> default is ~/\n"
 if ! [[ "$INSTALL_SYSTEM" == "macos" || "$INSTALL_SYSTEM" == "debian" ]]; then
-    echo -n "$USAGE_PROMT"
+    printf "$USAGE_PROMT"
     exit 1
 fi
 if ! [[ "$INSTALL_SHELL" == "zsh" || "$INSTALL_SHELL" == "bash" ]]; then
-    echo -n "$USAGE_PROMT"
+    printf "$USAGE_PROMT"
     exit 1
 fi
 if [[ "$INSTALL_LOCATION" != "~" ]]; then
@@ -31,7 +31,7 @@ install_file () {
     to=$INSTALL_LOCATION/$2
     if [[ -f "$to" ]]; then
         if ! diff $from $to; then
-            echo "REMOVED FROM $2:\n"
+            printf "REMOVED FROM $2:\n"
             diff -u $from $to | grep '^\+' | sed -E 's/^\+//' | tail -n +2
         fi
     fi
@@ -42,7 +42,7 @@ install_file () {
 case INSTALL_SHELL in
     zsh)
         if ! [[ -d "$INSTALL_LOCATION/.oh-my-zsh/custom" ]]; then
-            echo "Install Oh-my-zsh. Or the folder '$INSTALL_LOCATION/.oh-my-zsh/custom' is missing"
+            printf "Install Oh-my-zsh. Or the folder '$INSTALL_LOCATION/.oh-my-zsh/custom' is missing"
             exit 2
         fi
 
@@ -71,7 +71,7 @@ case INSTALL_SHELL in
         ;;
 
     *)
-        echo -n "$USAGE_PROMT"
+        printf -n "$USAGE_PROMT"
         exit 1
         ;;
 esac
