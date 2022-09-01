@@ -21,7 +21,7 @@ if ! [[ "$INSTALL_SHELL" == "zsh" || "$INSTALL_SHELL" == "bash" ]]; then
     exit 1
 fi
 if [[ "$INSTALL_LOCATION" != "~" ]]; then
-    INSTALL_LOCATION=$(dirname "$INSTALL_LOCATION")/$(basename "$INSTALL_LOCATION")
+    INSTALL_LOCATION=$(echo $INSTALL_LOCATION | sed 's:/*$::')
 fi
 
 INSTALL_FROM=$(dirname "$0")/$INSTALL_SHELL/$INSTALL_SYSTEM
@@ -35,11 +35,11 @@ install_file () {
             diff -u $from $to | grep '^\+' | sed -E 's/^\+//' | tail -n +2
         fi
     fi
-    rm -i $to
+    rm $to
     cp $from $to
 }
 
-case INSTALL_SHELL in
+case $INSTALL_SHELL in
     zsh)
         if ! [[ -d "$INSTALL_LOCATION/.oh-my-zsh/custom" ]]; then
             printf "Install Oh-my-zsh. Or the folder '$INSTALL_LOCATION/.oh-my-zsh/custom' is missing"
@@ -71,7 +71,7 @@ case INSTALL_SHELL in
         ;;
 
     *)
-        printf -n "$USAGE_PROMT"
+        printf "$USAGE_PROMT"
         exit 1
         ;;
 esac

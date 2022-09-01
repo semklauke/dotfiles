@@ -72,7 +72,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 export PROMPT_DIRTRIM=0
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)} \[\033[00m\]\u\[\033[00m\]@\[\033[00m\]\h\[\033[00m\]:\[\033[00;34m\]\w\[\033[00;31m\]
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[00m\]\u\[\033[00m\]@\[\033[00m\]\h\[\033[00m\]: \[\033[00;34m\]\w\[\033[00;31m\]
 $\[\033[00m\] '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '

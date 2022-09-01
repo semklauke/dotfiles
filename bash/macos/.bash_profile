@@ -59,7 +59,8 @@ if [ -f ~/.bash/fast_directory_switch_uni.sh ]; then
 fi
 
 #PS1 only in bash
-export PS1='\[\033[00m\]\u\[\033[00m\]@\[\033[00m\]\h\[\033[00m\]:\[\033[00;34m\]\w\[\033[00;31m\] \$\[\033[00m\] '
+export PS1='${debian_chroot:+($debian_chroot)}\[\033[00m\]\u\[\033[00m\]@\[\033[00m\]\h\[\033[00m\]: \[\033[00;34m\]\w\[\033[00;31m\]
+$\[\033[00m\] '
 
 
 
