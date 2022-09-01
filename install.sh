@@ -69,10 +69,18 @@ case $INSTALL_SHELL in
         if [ "$INSTALL_SYSTEM" = "macos" ]; then
             install_file ../oh-my-zsh/fast_directory_switch_uni.zsh $ZSH_CUSTOM_DIR/fast_directory_switch_uni.zsh
         fi
-        # install plugins
-        if ! [ -d "" ]
-        git clone https://github.com/zsh-users/zsh-autosuggestions $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $INSTALL_LOCATION/.oh-my-zsh/plugins/zsh-syntax-highlighting
+
+        # install extern plugins
+        if ! [ -d "$INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions" ]; then
+            git clone https://github.com/zsh-users/zsh-autosuggestions $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions > /dev/null
+        else
+            git -C $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions pull --ff-only > /dev/null
+        fi
+        if ! [ -d "INSTALL_LOCATION/.oh-my-zsh/plugins/zsh-syntax-highlighting" ]; then
+            git clone https://github.com/zsh-users/zsh-syntax-highlighting.git > /dev/null
+        else
+            git -C $INSTALL_LOCATION/.oh-my-zsh/plugins/zsh-syntax-highlighting pull --ff-only > /dev/null
+        fi
         ;;
 
     bash)
