@@ -3,17 +3,16 @@
 Host *
 AddKeysToAgent yes
 UseKeychain yes
-Preferredauthentications publickey
+Preferredauthentications publickey,password
+IdentityFile ~/.ssh/id
 
 Host server
 HostName #ipv6 of server
 User semklauke
-IdentityFile ~/.ssh/id
 
 Host serverv4
 HostName #ipv4 of server
 User semklauke
-IdentityFile ~/.ssh/id
 
 # git
 
