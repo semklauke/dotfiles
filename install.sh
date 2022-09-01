@@ -12,15 +12,15 @@ USAGE_PROMT="Usage ./install.sh <shell> <system> <?homefolder>\n"\
 "- <shell> must be 'zsh' or 'bash'\n"\
 "- <system> must be 'macos' or 'debian'\n"\
 "- <homefolder> default is ~/\n"
-if ! [[ "$INSTALL_SYSTEM" == "macos" || "$INSTALL_SYSTEM" == "debian" ]]; then
+if ! [ "$INSTALL_SYSTEM" = "macos" -o "$INSTALL_SYSTEM" = "debian" ]; then
     printf "$USAGE_PROMT"
     exit 1
 fi
-if ! [[ "$INSTALL_SHELL" == "zsh" || "$INSTALL_SHELL" == "bash" ]]; then
+if ! [ "$INSTALL_SHELL" = "zsh" -o "$INSTALL_SHELL" = "bash" ]; then
     printf "$USAGE_PROMT"
     exit 1
 fi
-if [[ "$INSTALL_LOCATION" != "~" ]]; then
+if [ "$INSTALL_LOCATION" != "~" ]; then
     INSTALL_LOCATION=$(echo $INSTALL_LOCATION | sed 's:/*$::')
 fi
 
@@ -29,10 +29,11 @@ INSTALL_FROM=$(dirname "$0")/$INSTALL_SHELL/$INSTALL_SYSTEM
 install_file () {
     from=$INSTALL_FROM/$1
     to=$INSTALL_LOCATION/$2
-    if [[ -f "$to" ]]; then
-        if ! diff $from $to; then
-            printf "REMOVED FROM $2:\n"
+    if [ -f "$to" ]; then
+        if ! diff $from $to > $to.diff; then
+            printf "REMOVED / CHANGED FROM $2:\n"
             diff -u $from $to | grep '^\+' | sed -E 's/^\+//' | tail -n +2
+            printf "---- See $to.diff ----"
         fi
     fi
     rm $to
@@ -41,7 +42,7 @@ install_file () {
 
 case $INSTALL_SHELL in
     zsh)
-        if ! [[ -d "$INSTALL_LOCATION/.oh-my-zsh/custom" ]]; then
+        if ! [ -d "$INSTALL_LOCATION/.oh-my-zsh/custom" ]; then
             printf "Install Oh-my-zsh. Or the folder '$INSTALL_LOCATION/.oh-my-zsh/custom' is missing"
             exit 2
         fi
@@ -53,7 +54,7 @@ case $INSTALL_SHELL in
         install_file ../../git/.gitconfig .gitconfig
         install_file ../../git/.gitignore_global .gitignore_global
         install_file ../../vimrc .vimrc
-        if [[ "$INSTALL_SYSTEM" == "macos" ]]; then
+        if [ "$INSTALL_SYSTEM" = "macos" ]; then
             install_file ../oh-my-zsh/fast_directory_switch_uni.zsh .oh-my-zsh/custom/fast_directory_switch_uni.zsh
         fi
         ;;
@@ -64,7 +65,7 @@ case $INSTALL_SHELL in
         install_file ../../git/.gitconfig .gitconfig
         install_file ../../git/.gitignore_global .gitignore_global
         install_file ../../vimrc .vimrc
-        if [[ "$INSTALL_SYSTEM" == "macos" ]]; then
+        if [ "$INSTALL_SYSTEM" = "macos" ]; then
             mkdir -p $INSTALL_LOCATION/.bash
             install_file ../oh-my-zsh/fast_directory_switch_uni.zsh .bash/fast_directory_switch_uni.sh
         fi

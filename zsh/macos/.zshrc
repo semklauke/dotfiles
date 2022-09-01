@@ -69,6 +69,4 @@ function spotify-cli() { spicetify $@; }
 function load-rustup() { source ~/.oh-my-zsh/custom/rustup }
 
 # usefull
-alias rm="rm -i"
-alias mv="mv -i"
 alias zshrc="subl ~/.zshrc"
