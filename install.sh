@@ -70,7 +70,7 @@ case $INSTALL_SHELL in
 
         install_file .zshenv .zshenv
         install_file .zshrc .zshrc
-        install_file ../oh-my-zsh/rustup $ZSH_CUSTOM_DIR/ustup
+        install_file ../oh-my-zsh/rustup $ZSH_CUSTOM_DIR/rustup
         install_file ../oh-my-zsh/sem.zsh-theme $ZSH_CUSTOM_DIR/themes/sem.zsh-theme
         if [ "$INSTALL_SYSTEM" = "macos" ]; then
             install_file ../oh-my-zsh/fast_directory_switch_uni.zsh $ZSH_CUSTOM_DIR/fast_directory_switch_uni.zsh
