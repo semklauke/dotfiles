@@ -48,6 +48,7 @@ install_file () {
                 rm "$to.diff"
             fi
         else
+            rm "$to.diff"
             printf "> $(tput setaf 2)Installed$(tput cuf 2)$(tput sgr0) $2\n"
             cp $from $to
         fi
