@@ -38,7 +38,7 @@ install_file () {
         if ! diff $from $to > $to.diff; then
             if [ $overwrite = "overwrite" ]; then
                 DIFF_FILES+=( "$to.diff" )
-                rm $to
+                rm "$to.diff"
                 cp $from $to
                 printf "> $(tput setaf 1)Overwritten$(tput sgr0) $2\n"
                 printf "  See $to.diff\n"
@@ -92,6 +92,7 @@ case $INSTALL_SHELL in
     bash)
         install_file .bash_profile .bash_profile
         install_file .bashrc .bashrc
+        install_file .bash_aliases .bash_aliases
         if [ "$INSTALL_SYSTEM" = "macos" ]; then
             mkdir -p $INSTALL_LOCATION/.bash
             install_file ../oh-my-zsh/fast_directory_switch_uni.zsh .bash/fast_directory_switch_uni.sh 
