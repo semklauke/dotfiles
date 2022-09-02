@@ -38,14 +38,14 @@ install_file () {
         if ! diff $from $to > $to.diff; then
             if [ $overwrite = "overwrite" ]; then
                 DIFF_FILES+=( "$to.diff" )
-                rm "$to.diff"
+                rm $to
                 cp $from $to
                 printf "> $(tput setaf 1)Overwritten$(tput sgr0) $2\n"
                 printf "  See $to.diff\n"
             else
                 printf "> $(tput setaf 3)Keeping$(tput cuf 4)$(tput sgr0) $2\n"
                 printf "  Replace manually with: cp -rf $from $to\n"
-                rm $to.diff
+                rm "$to.diff"
             fi
         else
             printf "> $(tput setaf 2)Installed$(tput cuf 2)$(tput sgr0) $2\n"
