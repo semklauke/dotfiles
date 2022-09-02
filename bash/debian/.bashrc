@@ -8,8 +8,12 @@ export LC_ALL=en_US.UTF-8
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
-export PATH="$HOME/.cargo/bin:$PATH"
 
+PATH="$HOME/.cargo/bin:$PATH"
+export JAVA_HOME=/usr/lib/jvm/jdk-18
+PATH="$PATH:$JAVA_HOME/bin"
+
+export PATH
 
 # load aliases
 if [ -f ~/.bash_aliases ]; then

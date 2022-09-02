@@ -5,7 +5,13 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 . "$HOME/.cargo/env"
-export PATH=${PATH}:/usr/local/bin/
+PATH=${PATH}:/usr/local/bin/
+
+# java
+export JAVA_HOME=/usr/lib/jvm/jdk-18
+PATH="$PATH:$JAVA_HOME/bin"
+
+export PATH
 
 #lang
 export LANG=en_US.UTF-8
