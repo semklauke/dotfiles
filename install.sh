@@ -35,7 +35,7 @@ install_file () {
     overwrite=${3:-"overwrite"}
 
     if [ -f "$to" ]; then
-        if ! diff $from $to > $to.diff; then
+        if ! diff $to $from  > $to.diff; then
             if [ $overwrite = "overwrite" ]; then
                 DIFF_FILES+=( "$to.diff" )
                 rm $to

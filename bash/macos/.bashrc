@@ -27,6 +27,20 @@ export DYLD_LIBRARY_PATH="/usr/local/opt/libomp/lib:$DYLD_LIBRARY_PATH"
 
 export OPENMP="clang -fopenmp -O3 "
 
+
+# java
+PATH="$HOME/.jenv/bin:$PATH"
+
+# start pyenv if installed
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
+# start jenv if installed
+if command -v jenv 1>/dev/null 2>&1; then
+    eval "$(jenv init -)"
+fi
+
 ##### load aliases #####
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases

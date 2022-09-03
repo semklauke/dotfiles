@@ -15,6 +15,7 @@ export PATH=$PATH:$GOROOT/bin
 
 # java
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
+export PATH="$HOME/.jenv/bin:$PATH"
 
 # ENV 
 export GRB_LICENSE_FILE="/User/semklauke/Dropbox/UNI/6-Semester/Operations Research/Gurobi/gurobi.lic"

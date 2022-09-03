@@ -74,6 +74,16 @@ function load-rustup() { source ~/.oh-my-zsh/custom/rustup }
 # usefull
 alias zshrc="$EDITOR ~/.zshrc"
 
+# start pyenv if installed
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
+# start jenv if installed
+if command -v jenv 1>/dev/null 2>&1; then
+    eval "$(jenv init -)"
+fi
+
 
 ### start ssh-agend ###
 SSH_ENV="$HOME/.ssh/agent-environment"

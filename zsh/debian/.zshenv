@@ -11,6 +11,8 @@ PATH=${PATH}:/usr/local/bin/
 export JAVA_HOME=/usr/lib/jvm/jdk-18
 PATH="$PATH:$JAVA_HOME/bin"
 
+PATH="$HOME/.jenv/bin:$PATH"
+
 export PATH
 
 #lang
