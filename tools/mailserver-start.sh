@@ -1,5 +1,9 @@
 #!/bin/bash
-sudo service postfix start;
+echo "--------[Starting Mail...]--------"
+sudo systemctl start postfix;
 sudo postfix start;
-sudo service dovecot start;
+sudo systemctl start dovecot;
+sudo systemctl start amavis;
 tool postgrey-start;
+sudo systemctl status postfix dovecot amavis postgrey;
+echo "--------[Done]--------";
