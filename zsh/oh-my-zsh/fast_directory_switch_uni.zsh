@@ -3,7 +3,7 @@
 # Also inbetween semester
 # 
 
-export CURRENT_SEMESTER=10;
+export CURRENT_SEMESTER=11;
 function getCourseFolderName() {
     case $1 in
         progra)             echo "Programmierung" ;;
@@ -33,7 +33,8 @@ function getCourseFolderName() {
         et2)                echo "Elektrotechnik 2" ;;
         elektrotechnik2)    echo "Elektrotechnik 2" ;;
         psp)                echo "Praktikum Systemprogrammierung" ;;
-        hpc)                echo "Soft.Praktikum" ;;
+        manycore)           echo "Soft.Praktikum" ;;
+        openmp)             echo "Soft.Praktikum" ;;
         softprak)           echo "Soft.Praktikum" ;;
         softpraktikum)      echo "Soft.Praktikum" ;;
         sp)                 echo "Soft.Praktikum" ;;
@@ -51,6 +52,8 @@ function getCourseFolderName() {
         malo)               echo "Mathematische Logik" ;;
         pmi)                echo "../HiWi" ;;
         hiwi)               echo "../HiWi" ;;
+        hpc)                echo "HPC" ;;
+        iai)                echo "Introduction to Artificial Intelligence" ;;
 
         *)                  echo "404" ;;
     esac
@@ -91,4 +94,8 @@ alias uni-7="cd /Users/semklauke/Dropbox/UNI/7-Semester"
 alias uni-8="cd /Users/semklauke/Dropbox/UNI/8-Semester"
 alias uni-9="cd /Users/semklauke/Dropbox/UNI/9-Semester"
 alias uni-10="cd /Users/semklauke/Dropbox/UNI/10-Semester"
-alias uni-11="cd /Users/semklauke/Dropbox/UNI/11-Semester"
+alias uni-12="cd /Users/semklauke/Dropbox/UNI/11-Semester"
+alias uni-13="cd /Users/semklauke/Dropbox/UNI/11-Semester"
+alias uni-14="cd /Users/semklauke/Dropbox/UNI/11-Semester"
+alias uni-15="cd /Users/semklauke/Dropbox/UNI/11-Semester"
+alias uni-16="cd /Users/semklauke/Dropbox/UNI/11-Semester"
