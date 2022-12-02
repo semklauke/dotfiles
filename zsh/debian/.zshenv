@@ -6,9 +6,11 @@ fi
 
 # OpenSSL
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
-
 export LDFLAGS="-L/usr/local/opt/openssl@3/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl@3/includ"
+export CPPFLAGS="-I/usr/local/opt/openssl@3/include"
+
+# lua OpenSSL
+export OPENSSL_DIR=/usr/local/opt/openssl@3/
 
 . "$HOME/.cargo/env"
 PATH=${PATH}:/usr/local/bin/

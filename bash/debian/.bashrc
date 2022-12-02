@@ -18,9 +18,11 @@ export PATH
 
 # OpenSSL
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
-
 export LDFLAGS="-L/usr/local/opt/openssl@3/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl@3/includ"
+export CPPFLAGS="-I/usr/local/opt/openssl@3/include"
+
+# lua OpenSSL
+export OPENSSL_DIR=/usr/local/opt/openssl@3/
 
 # start pyenv if installed
 if command -v pyenv 1>/dev/null 2>&1; then
