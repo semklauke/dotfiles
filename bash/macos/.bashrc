@@ -17,6 +17,12 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# OpenSSL
+export PATH="/usr/local/opt/openssl@3/bin:$PATH"
+
+export LDFLAGS="-L/usr/local/opt/openssl@3/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@3/includ"
+
 #includes + libs
 export C_INCLUDE_PATH="/usr/local/opt/libomp/include:$C_INCLUDE_PATH"
 export C_INCLUDE_PATH="/usr/local/opt/llvm/lib/clang/7.0.1/include:$C_INCLUDE_PATH"

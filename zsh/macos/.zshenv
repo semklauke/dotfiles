@@ -3,6 +3,13 @@
 # PATH
 
 export PATH=${PATH}:/usr/local/bin/
+
+# OpenSSL
+export PATH="/usr/local/opt/openssl@3/bin:$PATH"
+
+export LDFLAGS="-L/usr/local/opt/openssl@3/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@3/includ"
+
 ## Rust
 . "$HOME/.cargo/env"
 ## MySql

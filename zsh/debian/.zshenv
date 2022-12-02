@@ -4,6 +4,12 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+# OpenSSL
+export PATH="/usr/local/opt/openssl@3/bin:$PATH"
+
+export LDFLAGS="-L/usr/local/opt/openssl@3/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@3/includ"
+
 . "$HOME/.cargo/env"
 PATH=${PATH}:/usr/local/bin/
 
