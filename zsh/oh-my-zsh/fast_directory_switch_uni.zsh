@@ -3,7 +3,7 @@
 # Also inbetween semester
 # 
 
-export CURRENT_SEMESTER=11;
+export CURRENT_SEMESTER=12;
 function getCourseFolderName() {
     case $1 in
         progra)             echo "Programmierung" ;;
@@ -54,6 +54,10 @@ function getCourseFolderName() {
         hiwi)               echo "../HiWi" ;;
         hpc)                echo "HPC" ;;
         iai)                echo "Introduction to Artificial Intelligence" ;;
+        gp)                 echo "Geometry Processing" ;;
+        afd)                echo "Algorithmic Foundations of Datascience" ;;
+        ba)                 echo "BA" ;;
+        bachelor)           echo "BA" ;;
 
         *)                  echo "404" ;;
     esac
