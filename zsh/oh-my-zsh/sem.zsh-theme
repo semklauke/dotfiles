@@ -1,37 +1,59 @@
-# Color shortcuts
-RED=$fg[red]
-YELLOW=$fg[yellow]
-GREEN=$fg[green]
-WHITE=$fg[white]
-BLUE=$fg[blue]
-RED_BOLD=$fg_bold[red]
-YELLOW_BOLD=$fg_bold[yellow]
-GREEN_BOLD=$fg_bold[green]
-WHITE_BOLD=$fg_bold[white]
-BLUE_BOLD=$fg_bold[blue]
-RESET_COLOR=$reset_color
+git_sem_status() {
+    precmd_update_git_vars
+    if [ -n "$__CURRENT_GIT_STATUS" ]; then
+        PRE_BRANCH=""
+        POST_BRANCH=""
+        BRANCH_COLOR=""
+        if [ "$GIT_CLEAN" -eq "1" ]; then
+            PRE_BRANCH="%{$fg_bold[green]%}%{✔%G%}"
+            BRANCH_COLOR="%{$fg_bold[green]%}"
+        fi
+        if [ "$GIT_STAGED" -ne "0" ]; then
+            PRE_BRANCH="%{$FG[022]%}%{✔%G%}"
+            BRANCH_COLOR="%{$FG[022]%}"
+        fi
+        if [ "$GIT_UNTRACKED" -ne "0" ]; then
+            PRE_BRANCH="%{$FX[bold]%}%{$FG[202]%}%{✘%G%}"
+            BRANCH_COLOR="%{$FX[bold]%}%{$FG[202]%}"
+            POST_BRANCH="$POST_BRANCH %{$FG[202]%}%{✚%G%}$GIT_UNTRACKED"
+        fi
+        if [ "$GIT_CHANGED" -ne "0" ]; then
+            PRE_BRANCH="%{$FX[bold]%}%{$FG[088]%}%{✘%G%}"
+            BRANCH_COLOR="%{$FX[bold]%}%{$FG[088]%}"
+            POST_BRANCH="$POST_BRANCH %{$FG[088]%}%{<%G%}$GIT_CHANGED%{>%G%}"
+        fi
+        if [ "$GIT_DELETED" -ne "0" ]; then
+            PRE_BRANCH="%{$FX[bold]%}%{$FG[088]%}%{✘%G%}"
+            BRANCH_COLOR="%{$FX[bold]%}%{$FG[088]%}"
+            POST_BRANCH="$POST_BRANCH %{$FG[124]%}%{-%G%}$GIT_DELETED"
+        fi
+        if [ "$GIT_STAGED" -ne "0" ]; then
+            POST_BRANCH="$POST_BRANCH %{$FG[022]%}%{●%G%}$GIT_STAGED"
+        fi
+        if [ "$GIT_STASHED" -ne "0" ]; then
+            POST_BRANCH="$POST_BRANCH %{$FG[042]%}[%{⚑%G%}$GIT_STASHED]"
+        fi
+        OUT="$PRE_BRANCH $BRANCH_COLOR$GIT_BRANCH%{$reset_color%}$POST_BRANCH%{$reset_color%}"
+        echo "$OUT"
+    fi
+}
 
+git_sem_status_r() {
+    if [ -n "$__CURRENT_GIT_STATUS" ]; then
+        OUT="%{$reset_color%}|"
+        if [ "$GIT_BEHIND" -ne "0" ]; then
+            OUT="$OUT$ZSH_THEME_GIT_PROMPT_BEHIND$GIT_BEHIND%{${reset_color}%}"
+        fi
+        if [ "$GIT_AHEAD" -ne "0" ]; then
+            OUT="$OUT$ZSH_THEME_GIT_PROMPT_AHEAD$GIT_AHEAD%{${reset_color}%}"
+        fi
+        if [ "$GIT_AHEAD" -ne "0" ] || [ "$GIT_BEHIND" -ne "0" ]; then
+            echo "$OUT$GIT_UPSTREAM"
+        fi
+    fi
+}
 
-ZSH_THEME_GIT_PROMPT_UNMERGED=" %{$FG[088]%}unmerged"
-ZSH_THEME_GIT_PROMPT_DELETED=" %{$FG[088]%}deleted"
-ZSH_THEME_GIT_PROMPT_RENAMED=" %{$fg[yellow]%}renamed"
-ZSH_THEME_GIT_PROMPT_MODIFIED=" %{$fg[yellow]%}modified"
-ZSH_THEME_GIT_PROMPT_ADDED=" %{$fg[green]%}added"
-ZSH_THEME_GIT_PROMPT_UNTRACKED=" %{$reset_color%}untracked"
-
-ZSH_THEME_GIT_COMMITS_BEHIND_PREFIX="[%{$reset_color%}behind %{$FG[088]%}"
-ZSH_THEME_GIT_COMMITS_BEHIND_SUFFIX="%{$reset_color%}]"
-
-# Format for git_prompt_long_sha() and git_prompt_short_sha()
-ZSH_THEME_GIT_PROMPT_SHA_BEFORE=" %{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_SHA_AFTER="%{$reset_color%}"
-
-ZSH_THEME_GIT_PROMPT_PREFIX=""
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$FX[reset]%}%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$FX[bold]%}%{$FG[088]%}%{✘%G%} "
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%} "
-
-PROMPT='%{$reset_color%}%n@%M%{$reset_color%}:%{$FG[004]%} %6~ $(parse_git_dirty)$(git_current_branch)%{$FX[reset]%}%{$reset_color%}
+PROMPT='%{$reset_color%}%n@%M%{$reset_color%}:%{$FG[004]%} %6~ $(git_sem_status)%{$reset_color%}
 %* %{$FG[001]%}❯ %{$reset_color%}'
 
-RPROMPT='$(git_commits_behind)$(git_remote_status)'
+RPROMPT='$(git_sem_status_r)'
