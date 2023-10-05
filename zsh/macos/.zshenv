@@ -34,3 +34,4 @@ export PATH="/usr/local/Cellar/pypy3.10/7.3.12/libexec/bin:$PATH"
 
 # ENV 
 export GRB_LICENSE_FILE="/User/semklauke/Dropbox/UNI/6-Semester/Operations Research/Gurobi/gurobi.lic"
+export PLAYDATE_SDK_PATH="/User/semklauke/Developer/PlaydateSDK"
