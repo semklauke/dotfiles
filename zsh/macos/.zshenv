@@ -26,5 +26,11 @@ export PATH=$PATH:$GOROOT/bin
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
 
+# python
+#export PKG_CONFIG_PATH="/usr/local/opt/openblas/lib/pkgconfig"
+export PATH="~/.pyenv/versions/3.11.3/lib/python3.11/site-packages:$PATH"
+export PATH="/usr/local/Cellar/pypy3.10/7.3.12/libexec/bin:$PATH"
+
+
 # ENV 
 export GRB_LICENSE_FILE="/User/semklauke/Dropbox/UNI/6-Semester/Operations Research/Gurobi/gurobi.lic"
