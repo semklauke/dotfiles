@@ -3,7 +3,7 @@
 # Also inbetween semester
 # 
 
-export CURRENT_SEMESTER=12;
+export CURRENT_SEMESTER=13;
 function getCourseFolderName() {
     case $1 in
         progra)             echo "Programmierung" ;;
@@ -54,10 +54,17 @@ function getCourseFolderName() {
         hiwi)               echo "../HiWi" ;;
         hpc)                echo "HPC" ;;
         iai)                echo "Introduction to Artificial Intelligence" ;;
+        ai)                 echo "Introduction to Artificial Intelligence" ;;
         gp)                 echo "Geometry Processing" ;;
         afd)                echo "Algorithmic Foundations of Datascience" ;;
         ba)                 echo "BA" ;;
         bachelor)           echo "BA" ;;
+        ct)                 echo "Concurrency Theory";;
+        plexi)              echo "Complexity Theory";;
+        ad)                 echo "Algorithmic Differentiation";;
+        mlds)               echo "Elements of Machine Learning and Data Science";;
+        emlds)              echo "Elements of Machine Learning and Data Science";;
+        cse)                echo "Communication Systems Engineering";;
 
         *)                  echo "404" ;;
     esac
@@ -98,8 +105,8 @@ alias uni-7="cd /Users/semklauke/Dropbox/UNI/7-Semester"
 alias uni-8="cd /Users/semklauke/Dropbox/UNI/8-Semester"
 alias uni-9="cd /Users/semklauke/Dropbox/UNI/9-Semester"
 alias uni-10="cd /Users/semklauke/Dropbox/UNI/10-Semester"
-alias uni-12="cd /Users/semklauke/Dropbox/UNI/11-Semester"
-alias uni-13="cd /Users/semklauke/Dropbox/UNI/11-Semester"
-alias uni-14="cd /Users/semklauke/Dropbox/UNI/11-Semester"
-alias uni-15="cd /Users/semklauke/Dropbox/UNI/11-Semester"
-alias uni-16="cd /Users/semklauke/Dropbox/UNI/11-Semester"
+alias uni-11="cd /Users/semklauke/Dropbox/UNI/11-Semester"
+alias uni-12="cd /Users/semklauke/Dropbox/UNI/12-Semester"
+alias uni-13="cd /Users/semklauke/Dropbox/UNI/13-Semester"
+alias uni-14="cd /Users/semklauke/Dropbox/UNI/14-Semester"
+alias uni-15="cd /Users/semklauke/Dropbox/UNI/15-Semester"
