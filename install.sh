@@ -58,7 +58,10 @@ install_file () {
     fi
 }
 
-# start install
+# --------------------------------------------------------- #
+# --------------------- start install --------------------- #
+# --------------------------------------------------------- #
+
 printf -- "$(tput bold)---- Starting install in $INSTALL_LOCATION ----$(tput sgr0)\n"
 
 case $INSTALL_SHELL in
@@ -109,7 +112,9 @@ esac
 # install for both
 install_file ../../git/.gitconfig .gitconfig "keep"
 install_file ../../git/.gitignore_global .gitignore_global "overwrite"
-install_file ../../vimrc .vimrc "keep"
+install_file ../../config/vimrc .vimrc "keep"
+install_file ../../config/asdfrc .config/asdfrc "keep"
+install_file ../../config/default-python-packages .config/default-python-packages "keep"
 
 printf -- "$(tput bold)---- Done ----$(tput sgr0)\n"
 

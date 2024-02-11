@@ -10,6 +10,9 @@ ZSH_DISABLE_COMPFIX=true
 
 HIST_STAMPS="dd.mm.yyyy"
 
+# brew autocompletion
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 plugins=(
@@ -72,20 +75,26 @@ function load-rustup() { source ~/.oh-my-zsh/custom/rustup }
 
 # usefull
 alias zshrc="subl ~/.zshrc"
+alias x86="arch -x86_64 /bin/zsh"
 
 # start pyenv if installed
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
 
-# start jenv if installed
+# start jenv 
 if command -v jenv 1>/dev/null 2>&1; then
     eval "$(jenv init -)"
 fi
 
+# source asdf if installed
+if command -v asdf 1>/dev/null 2>&1; then 
+    source "$(brew --prefix asdf)/libexec/asdf.sh"
+    # source ~/.asdf/plugins/java/set-java-home.zsh
+fi
+
 ### start ssh-agend ###
 SSH_ENV="$HOME/.ssh/agent-environment"
-
 function start_agent {
     echo "Initialising new SSH agent..."
     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
