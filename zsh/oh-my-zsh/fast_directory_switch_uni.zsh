@@ -3,7 +3,7 @@
 # Also inbetween semester
 # 
 
-export CURRENT_SEMESTER=13;
+export CURRENT_SEMESTER=14;
 function getCourseFolderName() {
     case $1 in
         progra)             echo "Programmierung" ;;
@@ -65,6 +65,12 @@ function getCourseFolderName() {
         mlds)               echo "Elements of Machine Learning and Data Science";;
         emlds)              echo "Elements of Machine Learning and Data Science";;
         cse)                echo "Communication Systems Engineering";;
+        bpi)                echo "Business Process Intelligence";;
+        fp)                 echo "Functional Programming";;
+        qc)                 echo "Introduction to Quantum Computing";;
+        pom)                echo "Practical Optimization with Modeling Languages";;
+        or2)                echo "Operations Research 2" ;;
+        spa)                echo "Static Program Analysis";;
 
         *)                  echo "404" ;;
     esac
