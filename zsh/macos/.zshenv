@@ -5,8 +5,8 @@
 export PATH=/usr/local/bin/:${PATH}
 
 ## ENV 
-export GRB_LICENSE_FILE="/User/semklauke/Dropbox/UNI/14-Semester/Practical Optimization with Modeling Languages/stuff/gurobi.lic"
-export PLAYDATE_SDK_PATH="/User/semklauke/Developer/PlaydateSDK"
+export GRB_LICENSE_FILE="/Users/semklauke/Dropbox/UNI/14-Semester/Practical Optimization with Modeling Languages/stuff/${HOST}_gurobi.lic"
+export PLAYDATE_SDK_PATH="/Users/semklauke/Developer/PlaydateSDK"
 export ASDF_CONFIG_FILE="$HOME/.config/asdfrc"
 export ASDF_NPM_DEFAULT_PACKAGES_FILE="$HOME/.config/default-npm-packages"
 export ASDF_PYTHON_DEFAULT_PACKAGES_FILE="$HOME/.config/default-python-packages"

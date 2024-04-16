@@ -75,7 +75,40 @@ function load-rustup() { source ~/.oh-my-zsh/custom/rustup }
 
 # usefull
 alias zshrc="subl ~/.zshrc"
+alias zshenv="subl ~/.zshenv"
 alias x86="arch -x86_64 /bin/zsh"
+
+# virtual env
+function activate_virtualenv()
+{
+    local VIRTUALENV_DIRECTORY=${1:-'venv'}
+    local PATH_TO_VIRTUALENV=$(pwd)
+
+    # move up the path tree, but stop at root node
+    while [ "$PATH_TO_VIRTUALENV" != '/' ]
+    do
+        # is virtualenv's "activate" script accessible from current
+        # directory?
+        if [ -r "$PATH_TO_VIRTUALENV/$VIRTUALENV_DIRECTORY/bin/activate" ]
+        then
+            echo "Starting virtual environment:"
+            echo "$PATH_TO_VIRTUALENV/$VIRTUALENV_DIRECTORY"
+
+            # run "activate" script
+            source "$PATH_TO_VIRTUALENV/$VIRTUALENV_DIRECTORY/bin/activate"
+
+            # signal success
+            return 0
+        fi
+
+        # move up the path to parent directory
+        PATH_TO_VIRTUALENV=$(dirname "$PATH_TO_VIRTUALENV")
+    done
+
+    # signal failure
+    return 1
+}
+alias activate_venv=activate_virtualenv
 
 # start pyenv if installed
 if command -v pyenv 1>/dev/null 2>&1; then

@@ -38,3 +38,35 @@ function cloneghub() { git clone git@github.com:${1}.git ${2} ${3} ; }
 function ghubopen() { open $(git remote get-url ${1:-origin}) ;}
 function ghubclone() { git clone git@github.com:${1}.git ${2} ${3} ; }
 function github() { git clone git@github.com:semklauke/${1}.git ${2} ; }
+
+# virtual env
+function activate_virtualenv()
+{
+    local VIRTUALENV_DIRECTORY=${1:-'venv'}
+    local PATH_TO_VIRTUALENV=$(pwd)
+
+    # move up the path tree, but stop at root node
+    while [ "$PATH_TO_VIRTUALENV" != '/' ]
+    do
+        # is virtualenv's "activate" script accessible from current
+        # directory?
+        if [ -r "$PATH_TO_VIRTUALENV/$VIRTUALENV_DIRECTORY/bin/activate" ]
+        then
+            echo "Starting virtual environment:"
+            echo "$PATH_TO_VIRTUALENV/$VIRTUALENV_DIRECTORY"
+
+            # run "activate" script
+            source "$PATH_TO_VIRTUALENV/$VIRTUALENV_DIRECTORY/bin/activate"
+
+            # signal success
+            return 0
+        fi
+
+        # move up the path to parent directory
+        PATH_TO_VIRTUALENV=$(dirname "$PATH_TO_VIRTUALENV")
+    done
+
+    # signal failure
+    return 1
+}
+alias activate_venv=activate_virtualenv
