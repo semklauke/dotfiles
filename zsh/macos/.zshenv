@@ -58,5 +58,8 @@ export PATH="$HOME/.jenv/bin:$PATH"
 # deno
 export PATH="/Users/semklauke/.deno/bin:$PATH"
 
+## Haskell
+export PATH="$PATH:~/.ghcup/bin"
+
 ## Path Unimportant
 export PATH="$PATH:/Users/semklauke/Library/Application Support/JetBrains/Toolbox/scripts"
