@@ -1,9 +1,0 @@
-legacy_version_file = no
-use_release_candidates = no
-always_keep_download = no
-plugin_repository_last_check_duration = 60
-disable_plugin_short_name_repository = no
-concurrency = auto
-post_asdf_install_python = asdf reshim python
-post_asdf_install_golang = asdf reshim golang
-java_macos_integration_enable=yes

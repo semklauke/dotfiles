@@ -78,8 +78,6 @@ case $INSTALL_SHELL in
         install_file ../oh-my-zsh/sem.zsh-theme $ZSH_CUSTOM_DIR/themes/sem.zsh-theme
         if [ "$INSTALL_SYSTEM" = "macos" ]; then
             install_file ../oh-my-zsh/fast_directory_switch_uni.zsh $ZSH_CUSTOM_DIR/fast_directory_switch_uni.zsh
-            install_file ../../asdf/asdfrc .config/asdfrc
-            install_file ../../asdf/default-python-packages .config/default-python-packages
         fi
 
         # install extern plugins
@@ -115,8 +113,8 @@ esac
 install_file ../../git/.gitconfig .gitconfig "keep"
 install_file ../../git/.gitignore_global .gitignore_global "overwrite"
 install_file ../../config/vimrc .vimrc "keep"
-install_file ../../config/asdfrc .config/asdfrc "keep"
-install_file ../../config/default-python-packages .config/default-python-packages "keep"
+install_file ../../config/asdfrc .config/asdfrc "overwrite"
+install_file ../../config/default-python-packages .config/default-python-packages "overwrite"
 
 printf -- "$(tput bold)---- Done ----$(tput sgr0)\n"
 

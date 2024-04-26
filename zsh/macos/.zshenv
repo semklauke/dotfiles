@@ -20,7 +20,7 @@ fi
 
 ## OpenSSL
 export PATH="$PATH:$HOMEBREW_PREFIX/opt/openssl@3/bin"
-export LDFLAGS="-L$HOMEBREW_PREFIX/opt/openssl@3/lib"
+export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/openssl@3/lib"
 export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/openssl@3/include"
 # lua OpenSSL
 export OPENSSL_DIR="$HOMEBREW_PREFIX/opt/openssl@3/"
@@ -47,7 +47,7 @@ export PATH="$HOME/.jenv/bin:$PATH"
 ## Python
 
 # openblas
-#export PKG_CONFIG_PATH="${HOMEBREW_PREFIX}/opt/openblas/lib/pkgconfig"
+export PKG_CONFIG_PATH="${HOMEBREW_PREFIX}/opt/openblas/lib/pkgconfig"
 # brew + pyenv
 #export PATH="${HOMEBREW_PREFIX}/lib/python3.11/site-packages:${PATH}"
 #export PATH="${HOMEBREW_PREFIX}/lib/python3.12/site-packages:${PATH}"
@@ -63,3 +63,13 @@ export PATH="$PATH:~/.ghcup/bin"
 
 ## Path Unimportant
 export PATH="$PATH:/Users/semklauke/Library/Application Support/JetBrains/Toolbox/scripts"
+
+# scip + zimpl
+export PATH="$PATH:/usr/local/scIPOptSuite-9.0.0/build/bin"
+export DYLD_LIBRARY_PATH="/usr/local/scIPOptSuite-9.0.0/build/lib"
+
+## Compiler/lib shit
+export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/openblas/lib"
+export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/openblas/include"
+export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/curl/lib"
+export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/curl/include"

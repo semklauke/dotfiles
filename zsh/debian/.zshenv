@@ -4,6 +4,11 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+# asdf settings
+export ASDF_CONFIG_FILE="$HOME/.config/asdfrc"
+export ASDF_NPM_DEFAULT_PACKAGES_FILE="$HOME/.config/default-npm-packages"
+export ASDF_PYTHON_DEFAULT_PACKAGES_FILE="$HOME/.config/default-python-packages"
+
 # OpenSSL
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/openssl@3/lib"

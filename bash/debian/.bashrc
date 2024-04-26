@@ -34,6 +34,9 @@ if command -v jenv 1>/dev/null 2>&1; then
     eval "$(jenv init -)"
 fi
 
+# asdf
+. "$HOME/.asdf/asdf.sh"
+
 # load aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases

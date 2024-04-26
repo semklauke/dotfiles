@@ -20,6 +20,7 @@ plugins=(
     sudo 
     zsh-autosuggestions 
     zsh-syntax-highlighting
+    asdf
 )
 
 source $ZSH/oh-my-zsh.sh
