@@ -3,7 +3,7 @@
 # Also inbetween semester
 # 
 
-export CURRENT_SEMESTER=14;
+export CURRENT_SEMESTER=15;
 function getCourseFolderName() {
     case $1 in
         progra)             echo "Programmierung" ;;
@@ -71,6 +71,12 @@ function getCourseFolderName() {
         pom)                echo "Practical Optimization with Modeling Languages";;
         or2)                echo "Operations Research 2" ;;
         spa)                echo "Static Program Analysis";;
+        or1)                echo "Operations Research 1" ;;
+        or3)                echo "Operations Research 3" ;;
+        mc)                 echo "Model Checking" ;;
+        ml)                 echo "Machine Learning" ;;
+        svs)                echo "Semantics and Verification of Software" ;;
+        hpmc)               echo "High-Performance Matrix Computations" ;;
 
         *)                  echo "404" ;;
     esac
