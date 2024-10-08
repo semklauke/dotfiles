@@ -3,7 +3,7 @@ export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$ZSH/custom"
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="sem"
+ZSH_THEME="sem_git"
 
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_DISABLE_COMPFIX=true

@@ -64,10 +64,19 @@ export PATH="$PATH:~/.ghcup/bin"
 ## Path Unimportant
 export PATH="$PATH:/Users/semklauke/Library/Application Support/JetBrains/Toolbox/scripts"
 
+# Compile / LD / DyLD stuff
+export DYLD_LIBRARY_PATH="$HOMEBREW_PREFIX/lib"
+export LIBRARY_PATH="$HOMEBREW_PREFIX/lib"
+export C_INCLUDE_PATH="$HOMEBREW_PREFIX/include"
+export CPLUS_INCLUDE_PATH="$HOMEBREW_PREFIX/include"
+export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/curl/include"
+
 # scip + zimpl
 export PATH="$PATH:/usr/local/scIPOptSuite-9.0.0/build/bin"
-export DYLD_LIBRARY_PATH="/usr/local/scIPOptSuite-9.0.0/build/lib"
+export DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}:/usr/local/scIPOptSuite-9.0.0/build/lib"
+export LIBRARY_PATH="${LIBRARY_PATH}:/usr/local/scIPOptSuite-9.0.0/build/lib"
 export SCIPOPTDIR="$HOMEBREW_PREFIX/Cellar/scip/9.0.0"
+export C_INCLUDE_PATH="${C_INCLUDE_PATH}:/usr/local/scIPOptSuite-9.0.0/build/include"
 
 ## Compiler/lib shit
 export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/openblas/lib"
