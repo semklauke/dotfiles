@@ -5,7 +5,7 @@
 export PATH=/usr/local/bin/:${PATH}
 
 ## ENV 
-export GRB_LICENSE_FILE="/Users/semklauke/Dropbox/UNI/15-Semester/Operations Research 1/stuff/${HOST}_gurobi.lic"
+export GRB_LICENSE_FILE="/Users/semklauke/Dropbox/UNI/14-Semester/Practical Optimization with Modeling Languages/stuff/${HOST}_gurobi.lic"
 export PLAYDATE_SDK_PATH="/Users/semklauke/Developer/PlaydateSDK"
 export ASDF_CONFIG_FILE="$HOME/.config/asdfrc"
 export ASDF_NPM_DEFAULT_PACKAGES_FILE="$HOME/.config/default-npm-packages"

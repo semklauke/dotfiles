@@ -78,6 +78,9 @@ alias zshrc="subl ~/.zshrc"
 alias zshenv="subl ~/.zshenv"
 alias x86="arch -x86_64 /bin/zsh"
 
+# stuff
+alias dl="ls -Art ~/Downloads/ | grep -v .DS_Store |  tail -n 1 | xargs -I %  mv ~/Downloads/%"
+
 # virtual env
 function activate_virtualenv()
 {
