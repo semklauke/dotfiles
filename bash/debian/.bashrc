@@ -24,6 +24,18 @@ export CPPFLAGS="-I/usr/local/opt/openssl@3/include"
 # lua OpenSSL
 export OPENSSL_DIR=/usr/local/opt/openssl@3/
 
+## Rust
+. "$HOME/.cargo/env"
+
+## MySql
+export PATH=${PATH}:/usr/local/mysql/bin
+
+## GO
+export GOPATH="$HOME/Go"
+#export GOROOT="$HOMEBREW_PREFIX/opt/go/libexec"
+#export PATH="$PATH:$GOPATH/bin"
+#export PATH="$PATH:$GOROOT/bin"
+
 # start pyenv if installed
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
@@ -32,6 +44,7 @@ fi
 # start jenv if installed
 if command -v jenv 1>/dev/null 2>&1; then
     eval "$(jenv init -)"
+    export PATH="$HOME/.jenv/bin:$PATH"
 fi
 
 # asdf
