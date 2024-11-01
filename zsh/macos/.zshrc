@@ -77,6 +77,7 @@ function load-rustup() { source ~/.oh-my-zsh/custom/rustup }
 alias zshrc="subl ~/.zshrc"
 alias zshenv="subl ~/.zshenv"
 alias x86="arch -x86_64 /bin/zsh"
+alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'
 
 # stuff
 alias dl="ls -Art ~/Downloads/ | grep -v .DS_Store |  tail -n 1 | xargs -I %  mv ~/Downloads/%"
@@ -128,6 +129,10 @@ if command -v asdf 1>/dev/null 2>&1; then
     source "$(brew --prefix asdf)/libexec/asdf.sh"
     # source ~/.asdf/plugins/java/set-java-home.zsh
 fi
+
+## PATH (end)
+# C
+export PATH="$HOMEBREW_PREFIX/opt/make/libexec/gnubin:$PATH"
 
 ### start ssh-agend ###
 SSH_ENV="$HOME/.ssh/agent-environment"

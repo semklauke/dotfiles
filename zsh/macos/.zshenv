@@ -15,8 +15,6 @@ else
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# C
-export PATH="$HOMEBREW_PREFIX/opt/make/libexec/gnubin:$PATH"
 
 ## OpenSSL
 export PATH="$PATH:$HOMEBREW_PREFIX/opt/openssl@3/bin"
@@ -56,6 +54,9 @@ export PKG_CONFIG_PATH="${HOMEBREW_PREFIX}/opt/openblas/lib/pkgconfig"
 
 ## PATH Important
 export PATH=/usr/local/bin/:${PATH}
+
+# C
+export PATH="$HOMEBREW_PREFIX/opt/make/libexec/gnubin:$PATH"
 
 ## JS
 # deno
