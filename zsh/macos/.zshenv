@@ -1,9 +1,6 @@
 # ENV + PATH VARIABLES
 # --------------------
 
-## PATH Important
-export PATH=/usr/local/bin/:${PATH}
-
 ## ENV 
 export GRB_LICENSE_FILE="/Users/semklauke/Dropbox/UNI/14-Semester/Practical Optimization with Modeling Languages/stuff/${HOST}_gurobi.lic"
 export PLAYDATE_SDK_PATH="/Users/semklauke/Developer/PlaydateSDK"
@@ -17,6 +14,9 @@ if command -v brew 1>/dev/null 2>&1; then
 else
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
+
+# C
+export PATH="$HOMEBREW_PREFIX/opt/make/libexec/gnubin:$PATH"
 
 ## OpenSSL
 export PATH="$PATH:$HOMEBREW_PREFIX/opt/openssl@3/bin"
@@ -53,6 +53,9 @@ export PKG_CONFIG_PATH="${HOMEBREW_PREFIX}/opt/openblas/lib/pkgconfig"
 #export PATH="${HOMEBREW_PREFIX}/lib/python3.12/site-packages:${PATH}"
 #export PATH="~/.pyenv/versions/3.11.3/lib/python3.11/site-packages:$PATH"
 
+
+## PATH Important
+export PATH=/usr/local/bin/:${PATH}
 
 ## JS
 # deno

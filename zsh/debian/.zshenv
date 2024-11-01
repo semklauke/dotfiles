@@ -18,7 +18,7 @@ export CPPFLAGS="-I/usr/local/opt/openssl@3/include"
 export OPENSSL_DIR=/usr/local/opt/openssl@3/
 
 . "$HOME/.cargo/env"
-PATH=${PATH}:/usr/local/bin/
+export PATH=${PATH}:/usr/local/bin/
 
 # java
 export JAVA_HOME=/usr/lib/jvm/jdk-18

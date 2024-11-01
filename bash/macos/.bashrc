@@ -4,6 +4,13 @@ export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+## Homebrew
+if command -v brew 1>/dev/null 2>&1; then
+    eval "$(brew shellenv)"
+else
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 ##### PATH ######
 export PATH=${PATH}:/usr/local/mysql/bin
 export PATH=${PATH}:/usr/local/bin/
@@ -26,6 +33,9 @@ export CPPFLAGS="-I/usr/local/opt/openssl@3/include"
 # lua OpenSSL
 export OPENSSL_DIR=/usr/local/opt/openssl@3/
 
+# C
+export PATH="$HOMEBREW_PREFIX/opt/make/libexec/gnubin:$PATH"
+
 #includes + libs
 export C_INCLUDE_PATH="/usr/local/opt/libomp/include:$C_INCLUDE_PATH"
 export C_INCLUDE_PATH="/usr/local/opt/llvm/lib/clang/7.0.1/include:$C_INCLUDE_PATH"
@@ -38,7 +48,7 @@ export OPENMP="clang -fopenmp -O3 "
 
 
 # java
-PATH="$HOME/.jenv/bin:$PATH"
+export PATH="$HOME/.jenv/bin:$PATH"
 
 # start pyenv if installed
 if command -v pyenv 1>/dev/null 2>&1; then
