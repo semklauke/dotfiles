@@ -57,6 +57,7 @@ alias webserver="cd /etc/nginx/"
 alias teamspeak="cd /home/teamspeak/server"
 alias minecraft="cd /home/minecraft/server; su minecraft"
 alias mail-postfix="cd /etc/postfix"
+alias lkp="cd /home/semklauke/documents/lkp"
 
 # git
 function openghub() { open $(git remote get-url ${1:-origin}) ;}
@@ -75,6 +76,7 @@ function load-rustup() { source ~/.oh-my-zsh/custom/rustup }
 # usefull
 alias zshrc="$EDITOR ~/.zshrc"
 alias zshenv="$EDITOR ~/.zshenv"
+alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'
 
 # virtual env
 function activate_virtualenv()
@@ -138,3 +140,7 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
+
+
+## IMPORTANT PATH
+export PATH="/usr/lib/llvm-16/bin:$PATH"
