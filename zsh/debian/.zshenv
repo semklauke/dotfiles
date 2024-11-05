@@ -24,6 +24,9 @@ export PATH="/usr/local/bin/:${PATH}"
 export JAVA_HOME=/usr/lib/jvm/jdk-18
 export PATH="$PATH:$JAVA_HOME/bin"
 
+# GO
+export PATH="$PATH:/usr/local/go/bin"
+
 #lang
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
