@@ -125,4 +125,7 @@ if ! [ ${#DIFF_FILES[@]} -eq 0 ]; then
     
     printf -- "If you want to remove all of the .diff files execute\n"
     printf "rm ${joined_diff_files:1}\n"
+    if [[ "$INSTALL_SYSTEM" == "macos" ]]; then
+        echo "rm ${joined_diff_files:1}" | pbcopy
+    fi
 fi
