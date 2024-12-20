@@ -113,7 +113,7 @@ esac
 # install for both
 install_file ../../git/.gitconfig .gitconfig "keep"
 install_file ../../git/.gitignore_global .gitignore_global "overwrite"
-install_file ../../config/vimrc .vimrc "keep"
+install_file ../../configs/vimrc .vimrc "keep"
 install_file ../../config/asdfrc .config/asdfrc "overwrite"
 install_file ../../config/default-python-packages .config/default-python-packages "overwrite"
 
