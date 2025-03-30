@@ -3,7 +3,7 @@
 # Also inbetween semester
 # 
 
-export CURRENT_SEMESTER=15;
+export CURRENT_SEMESTER=16;
 function getCourseFolderName() {
     case $1 in
         progra)             echo "Programmierung" ;;
@@ -50,8 +50,8 @@ function getCourseFolderName() {
         pca)                echo "PerformanceCorrectnessAnalysisParallelPrograms" ;;
         emsys)              echo "Embedded Systems" ;;
         malo)               echo "Mathematische Logik" ;;
-        pmi)                echo "../HiWi" ;;
-        hiwi)               echo "../HiWi" ;;
+        pmi)                echo "../HiWi-PMI" ;;
+        hiwi)               echo "../HiWi-OR" ;;
         hpc)                echo "HPC" ;;
         iai)                echo "Introduction to Artificial Intelligence" ;;
         ai)                 echo "Introduction to Artificial Intelligence" ;;
@@ -77,7 +77,10 @@ function getCourseFolderName() {
         ml)                 echo "Machine Learning" ;;
         svs)                echo "Semantics and Verification of Software" ;;
         hpmc)               echo "High-Performance Matrix Computations" ;;
-
+        lkp)                echo "Linux Kernel Programming" ;;
+        sprachkurs)         echo "Sprachkurs" ;;
+        english)            echo "Sprachkurs" ;;
+        
         *)                  echo "404" ;;
     esac
 }
@@ -107,6 +110,29 @@ function uni() {
     
 }
 
+function uni-alfred() {
+    local UNIPREFIX="/Users/semklauke/Dropbox/UNI"
+    local SEM=${2:-$CURRENT_SEMESTER}
+    local SEMSTRING="$SEM-Semester"
+    local COURSE=$(getCourseFolderName ${1})
+    if [[ $COURSE == "404" ]]; then
+        echo "ERROR"
+        return 1;
+    fi
+    while true; do
+        if [[ -d "$UNIPREFIX/$SEMSTRING/$COURSE" ]]; then
+            echo "$UNIPREFIX/$SEMSTRING/$COURSE";
+            return 0;
+        else
+            SEM=$(($SEM-1))
+            SEMSTRING="$SEM-Semester"
+            if [[ $SEM -eq 0 ]]; then break; fi
+        fi
+    done
+    echo "No semester for ${1} found"
+    return 2;
+}
+
 alias uni-1="cd /Users/semklauke/Dropbox/UNI/1-Semester"
 alias uni-2="cd /Users/semklauke/Dropbox/UNI/2-Semester"
 alias uni-3="cd /Users/semklauke/Dropbox/UNI/3-Semester"
@@ -122,3 +148,7 @@ alias uni-12="cd /Users/semklauke/Dropbox/UNI/12-Semester"
 alias uni-13="cd /Users/semklauke/Dropbox/UNI/13-Semester"
 alias uni-14="cd /Users/semklauke/Dropbox/UNI/14-Semester"
 alias uni-15="cd /Users/semklauke/Dropbox/UNI/15-Semester"
+alias uni-16="cd /Users/semklauke/Dropbox/UNI/16-Semester"
+alias uni-17="cd /Users/semklauke/Dropbox/UNI/17-Semester"
+alias uni-18="cd /Users/semklauke/Dropbox/UNI/18-Semester"
+alias uni-19="cd /Users/semklauke/Dropbox/UNI/19-Semester"
