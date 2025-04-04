@@ -127,8 +127,11 @@ fi
 
 # source asdf if installed
 if command -v asdf 1>/dev/null 2>&1; then 
-    source "$(brew --prefix asdf)/libexec/asdf.sh"
+    #source "$(brew --prefix asdf)/libexec/asdf.sh"
     # source ~/.asdf/plugins/java/set-java-home.zsh
+    export ASDF_DATA_DIR="$HOME/.asdf"
+    export PATH="$ASDF_DATA_DIR/shims:$PATH"
+    asdf reshim
 fi
 
 ## PATH (end)

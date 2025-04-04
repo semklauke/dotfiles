@@ -119,6 +119,11 @@ install_file ../../config/default-python-packages .config/default-python-package
 
 printf -- "$(tput bold)---- Done ----$(tput sgr0)\n"
 
+# reshim if asdf is installed
+if command -v asdf 1>/dev/null 2>&1; then
+    asdf reshim
+fi
+
 # show command to delete all diff files
 if ! [ ${#DIFF_FILES[@]} -eq 0 ]; then
     joined_diff_files=$(printf " %s" "${DIFF_FILES[@]}")
