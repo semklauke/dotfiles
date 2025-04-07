@@ -69,9 +69,9 @@ function getCourseFolderName() {
         fp)                 echo "Functional Programming";;
         qc)                 echo "Introduction to Quantum Computing";;
         pom)                echo "Practical Optimization with Modeling Languages";;
-        or2)                echo "Operations Research 2" ;;
         spa)                echo "Static Program Analysis";;
         or1)                echo "Operations Research 1" ;;
+        or2)                echo "Operations Research 2" ;;
         or3)                echo "Operations Research 3" ;;
         mc)                 echo "Model Checking" ;;
         ml)                 echo "Machine Learning" ;;
@@ -80,7 +80,9 @@ function getCourseFolderName() {
         lkp)                echo "Linux Kernel Programming" ;;
         sprachkurs)         echo "Sprachkurs" ;;
         english)            echo "Sprachkurs" ;;
-        
+        aml)                echo "Advanced Machine Learning" ;;
+        orp)                echo "OR Praktikum" ;;
+        cgsem)              echo "CG Seminar" ;;        
         *)                  echo "404" ;;
     esac
 }
