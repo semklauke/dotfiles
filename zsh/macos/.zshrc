@@ -7,6 +7,7 @@ ZSH_THEME="sem_git"
 
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_DISABLE_COMPFIX=true
+ZSH_AUTOSUGGEST_MANUAL_REBIND="true"
 
 HIST_STAMPS="dd.mm.yyyy"
 
@@ -131,7 +132,7 @@ if command -v asdf 1>/dev/null 2>&1; then
     # source ~/.asdf/plugins/java/set-java-home.zsh
     export ASDF_DATA_DIR="$HOME/.asdf"
     export PATH="$ASDF_DATA_DIR/shims:$PATH"
-    asdf reshim
+    #asdf reshim
 fi
 
 ## PATH (end)
