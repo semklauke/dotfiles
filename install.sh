@@ -8,11 +8,13 @@
 
 INSTALL_SHELL=$1
 INSTALL_SYSTEM=$2
-INSTALL_LOCATION=${3:-~}
+INSTALL_INTERACTIVE=${3:-"basic"}
+INSTALL_LOCATION=${4:-~}
 # check input
-USAGE_PROMT="Usage ./install.sh <shell> <system> <?homefolder>\n"\
+USAGE_PROMT="Usage ./install.sh <shell> <system> <?full> <?homefolder>\n"\
 "- <shell> must be 'zsh' or 'bash'\n"\
 "- <system> must be 'macos' or 'debian'\n"\
+"- <full> 'full' or 'basic' interactive shell. Default 'basic'\n"\
 "- <homefolder> default is ~/\n"
 if ! [ "$INSTALL_SYSTEM" = "macos" -o "$INSTALL_SYSTEM" = "debian" ]; then
     printf "$USAGE_PROMT"
@@ -72,14 +74,25 @@ case $INSTALL_SHELL in
         fi
         ZSH_CUSTOM_DIR=.oh-my-zsh/custom
 
+        if ! [ -d "$INSTALL_LOCATION/.config" ]; then
+            mkdir $INSTALL_LOCATION/.config
+        fi
+        if ! [ -d "$INSTALL_LOCATION/.config/zsh" ]; then
+            mkdir $INSTALL_LOCATION/.config/zsh
+        fi
+
         install_file .zshenv .zshenv
         install_file .zshrc .zshrc
+        install_file zshrc_full.sh .config/zsh/zshrc_full.sh
         install_file ../oh-my-zsh/rustup $ZSH_CUSTOM_DIR/rustup
         install_file ../oh-my-zsh/sem.zsh-theme $ZSH_CUSTOM_DIR/themes/sem.zsh-theme
         install_file ../oh-my-zsh/sem_git.zsh-theme $ZSH_CUSTOM_DIR/themes/sem_git.zsh-theme
         if [ "$INSTALL_SYSTEM" = "macos" ]; then
             install_file ../oh-my-zsh/fast_directory_switch_uni.zsh $ZSH_CUSTOM_DIR/fast_directory_switch_uni.zsh
         fi
+
+        # set basic or full interative shell
+        echo "INTERACTIVE_SHELL=$INSTALL_INTERACTIVE" >> $INSTALL_LOCATION/.zshenv
 
         # install extern plugins
         if ! [ -d "$INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions" ]; then
@@ -102,6 +115,8 @@ case $INSTALL_SHELL in
             mkdir -p $INSTALL_LOCATION/.bash
             install_file ../oh-my-zsh/fast_directory_switch_uni.zsh .bash/fast_directory_switch_uni.sh 
         fi
+        # set basic or full interative shell
+        echo "INTERACTIVE_SHELL=$INSTALL_INTERACTIVE" >> $INSTALL_LOCATION/.bash_profile
         ;;
 
     *)

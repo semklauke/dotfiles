@@ -11,26 +11,30 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND="true"
 
 HIST_STAMPS="dd.mm.yyyy"
 
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-plugins=(
-    git-prompt 
-    colorize 
-    aliases 
-    history-substring-search 
-    mix 
-    sudo 
-    zsh-autosuggestions 
-    zsh-syntax-highlighting
-    asdf
-)
 
-source $ZSH/oh-my-zsh.sh
+if [[ "$INTERACTIVE_SHELL" = 'full' ]]; then
+    source $ZSH_SCRIPTS/zshrc_full.sh
+else
+    # plugins
+    plugins=(
+        colorize 
+        aliases 
+        history-substring-search 
+        zsh-autosuggestions 
+        zsh-syntax-highlighting
+        asdf
+    )
+
+
+    source $ZSH/oh-my-zsh.sh
+fi
 
 # User configuration
 export EDITOR='vim'
 
 export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 export PROMPT_DIRTRIM=4
 
@@ -112,23 +116,10 @@ function activate_virtualenv()
 }
 alias activate_venv=activate_virtualenv
 
-# start pyenv if installed
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
-fi
-
-# start jenv if installed
-if command -v jenv 1>/dev/null 2>&1; then
-    eval "$(jenv init -)"
-fi
-
 # source asdf if installed
 if command -v asdf 1>/dev/null 2>&1; then
-    #source "$(brew --prefix asdf)/libexec/asdf.sh"
-    # source ~/.asdf/plugins/java/set-java-home.zsh
     export ASDF_DATA_DIR="$HOME/.asdf"
     export PATH="$ASDF_DATA_DIR/shims:$PATH"
-    #asdf reshim
 fi
 
 
@@ -155,3 +146,9 @@ fi
 
 ## IMPORTANT PATH
 export PATH="/usr/lib/llvm-16/bin:$PATH"
+
+
+## source local file
+if [ -f "$ZSH_SCRIPTS/local.sh" ]; then
+    source $ZSH_SCRIPTS/local.sh
+fi

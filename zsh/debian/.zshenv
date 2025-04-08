@@ -4,6 +4,9 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+## ZSH
+export ZSH_SCRIPTS="$HOME/.config/zsh"
+
 # asdf settings
 export ASDF_CONFIG_FILE="$HOME/.config/asdfrc"
 export ASDF_NPM_DEFAULT_PACKAGES_FILE="$HOME/.config/default-npm-packages"

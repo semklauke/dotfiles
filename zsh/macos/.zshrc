@@ -1,9 +1,9 @@
-# Path to your oh-my-zsh installation.
+# ZSH Settings
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$ZSH/custom"
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="sem_git"
+
+ZSH_THEME="sem"
 
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_DISABLE_COMPFIX=true
@@ -14,21 +14,21 @@ HIST_STAMPS="dd.mm.yyyy"
 # brew autocompletion
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-plugins=(
-    git-prompt 
-    colorize 
-    aliases 
-    history-substring-search 
-    macos 
-    mix 
-    sudo 
-    zsh-autosuggestions 
-    zsh-syntax-highlighting
-)
 
-source $ZSH/oh-my-zsh.sh
+if [[ "$INTERACTIVE_SHELL" = 'full' ]]; then
+    source $ZSH_SCRIPTS/zshrc_full.sh
+else
+    # plugins
+    plugins=(
+        colorize 
+        macos 
+        zsh-autosuggestions 
+        zsh-syntax-highlighting
+    )
+
+
+    source $ZSH/oh-my-zsh.sh
+fi
 
 # User configuration
 
@@ -116,28 +116,17 @@ function activate_virtualenv()
 }
 alias activate_venv=activate_virtualenv
 
-# start pyenv if installed
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
-fi
-
-# start jenv 
-if command -v jenv 1>/dev/null 2>&1; then
-    eval "$(jenv init -)"
-fi
+# load full interactive shell
+full() {
+    source $ZSH_SCRIPTS/zshrc_full.sh
+    echo "Done."
+}
 
 # source asdf if installed
 if command -v asdf 1>/dev/null 2>&1; then 
-    #source "$(brew --prefix asdf)/libexec/asdf.sh"
-    # source ~/.asdf/plugins/java/set-java-home.zsh
     export ASDF_DATA_DIR="$HOME/.asdf"
     export PATH="$ASDF_DATA_DIR/shims:$PATH"
-    #asdf reshim
 fi
-
-## PATH (end)
-# C
-export PATH="$HOMEBREW_PREFIX/opt/make/libexec/gnubin:$PATH"
 
 ### start ssh-agend ###
 SSH_ENV="$HOME/.ssh/agent-environment"
@@ -159,3 +148,14 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
+
+
+######################## PATH (beginning ->) ########################
+# add something to the beginning of PATH for priority
+export PATH="$HOMEBREW_PREFIX/opt/make/libexec/gnubin:$PATH"
+
+## source local file
+if [ -f "$ZSH_SCRIPTS/local.sh" ]; then
+    source $ZSH_SCRIPTS/local.sh
+fi
+

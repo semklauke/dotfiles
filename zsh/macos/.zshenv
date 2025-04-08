@@ -1,6 +1,9 @@
 # ENV + PATH VARIABLES
 # --------------------
 
+## ZSH
+export ZSH_SCRIPTS="$HOME/.config/zsh"
+
 ## ENV 
 export GRB_LICENSE_FILE="/Users/semklauke/Dropbox/UNI/14-Semester/Practical Optimization with Modeling Languages/stuff/${HOST}_gurobi.lic"
 export PLAYDATE_SDK_PATH="/Users/semklauke/Developer/PlaydateSDK"
@@ -12,7 +15,11 @@ export ASDF_PYTHON_DEFAULT_PACKAGES_FILE="$HOME/.config/default-python-packages"
 if command -v brew 1>/dev/null 2>&1; then
     eval "$(brew shellenv)"
 else
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    if [[ $(uname -m) == 'arm64' ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    else
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
 fi
 
 
