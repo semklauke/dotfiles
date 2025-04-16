@@ -46,7 +46,7 @@ alias edit="subl"
 alias ff="find . -type f -name"
 alias fdd="find . -type d -name"
 function projects() {  cd /Users/semklauke/Documents/Projects/$@ ;}
-alias lkp="cd /Users/semklauke/OrbStack/ubuntu/home/semklauke/documents/lkp"
+alias sciebo="cd /Users/semklauke/sciebo"
 
 # Network status
 alias ping8="ping 8.8.8.8"

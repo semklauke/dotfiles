@@ -92,7 +92,7 @@ case $INSTALL_SHELL in
         fi
 
         # set basic or full interative shell
-        echo "INTERACTIVE_SHELL=$INSTALL_INTERACTIVE" >> $INSTALL_LOCATION/.zshenv
+        echo -e "\nINTERACTIVE_SHELL=$INSTALL_INTERACTIVE" >> $INSTALL_LOCATION/.zshenv
 
         # install extern plugins
         if ! [ -d "$INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions" ]; then
@@ -116,7 +116,7 @@ case $INSTALL_SHELL in
             install_file ../oh-my-zsh/fast_directory_switch_uni.zsh .bash/fast_directory_switch_uni.sh 
         fi
         # set basic or full interative shell
-        echo "INTERACTIVE_SHELL=$INSTALL_INTERACTIVE" >> $INSTALL_LOCATION/.bash_profile
+        echo -e "\nINTERACTIVE_SHELL=$INSTALL_INTERACTIVE" >> $INSTALL_LOCATION/.bash_profile
         ;;
 
     *)
@@ -146,6 +146,6 @@ if ! [ ${#DIFF_FILES[@]} -eq 0 ]; then
     printf -- "If you want to remove all of the .diff files execute\n"
     printf "rm ${joined_diff_files:1}\n"
     if [[ "$INSTALL_SYSTEM" == "macos" ]]; then
-        echo "rm ${joined_diff_files:1}" | pbcopy
+        echo -n "rm ${joined_diff_files:1}" | pbcopy
     fi
 fi
