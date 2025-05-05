@@ -12,6 +12,9 @@ export ASDF_CONFIG_FILE="$HOME/.config/asdfrc"
 export ASDF_NPM_DEFAULT_PACKAGES_FILE="$HOME/.config/default-npm-packages"
 export ASDF_PYTHON_DEFAULT_PACKAGES_FILE="$HOME/.config/default-python-packages"
 
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+
 # OpenSSL
 export PATH="$PATH:/usr/local/opt/openssl@3/bin"
 export LDFLAGS="-L/usr/local/opt/openssl@3/lib"

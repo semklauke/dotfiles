@@ -54,6 +54,7 @@ export PATH="$HOME/.jenv/bin:$PATH"
 # openblas
 export PKG_CONFIG_PATH="${HOMEBREW_PREFIX}/opt/openblas/lib/pkgconfig"
 # brew + pyenv
+export PYENV_ROOT="$HOME/.pyenv"
 #export PATH="${HOMEBREW_PREFIX}/lib/python3.11/site-packages:${PATH}"
 #export PATH="${HOMEBREW_PREFIX}/lib/python3.12/site-packages:${PATH}"
 #export PATH="~/.pyenv/versions/3.11.3/lib/python3.11/site-packages:$PATH"
