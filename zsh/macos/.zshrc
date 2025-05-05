@@ -82,7 +82,15 @@ alias x86="arch -x86_64 /bin/zsh"
 alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'
 
 # stuff
-alias dl="ls -Art ~/Downloads/ | grep -v .DS_Store |  tail -n 1 | xargs -I %  mv ~/Downloads/%"
+#alias dl="ls -Art ~/Downloads/ | grep -v .DS_Store |  tail -n 1 | xargs -I %  mv ~/Downloads/%"
+function dl() {
+    local TARGET=${1:-'./'}
+    local N=${2:-'1'}
+    repeat $N {
+        ls -Art ~/Downloads/ | grep -v .DS_Store |  tail -n 1 | xargs -I %  mv ~/Downloads/% $TARGET
+    }
+}
+alias dll="dl ./"
 
 # virtual env
 function activate_virtualenv()
