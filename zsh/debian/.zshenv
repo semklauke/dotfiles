@@ -14,6 +14,7 @@ export ASDF_PYTHON_DEFAULT_PACKAGES_FILE="$HOME/.config/default-python-packages"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 
 # OpenSSL
 export PATH="$PATH:/usr/local/opt/openssl@3/bin"
@@ -29,6 +30,7 @@ export PATH="/usr/local/bin/:${PATH}"
 # java
 export JAVA_HOME=/usr/lib/jvm/jdk-18
 export PATH="$PATH:$JAVA_HOME/bin"
+export PATH="$HOME/.jenv/bin:$PATH"
 
 # GO
 export PATH="$PATH:/usr/local/go/bin"

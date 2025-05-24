@@ -130,11 +130,16 @@ full() {
     echo "Done."
 }
 
-# source asdf if installed
-if command -v asdf 1>/dev/null 2>&1; then 
-    export ASDF_DATA_DIR="$HOME/.asdf"
-    export PATH="$ASDF_DATA_DIR/shims:$PATH"
+# start pyenv if installed
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init - zsh)"
 fi
+
+# start jenv if installed
+if command -v jenv 1>/dev/null 2>&1; then
+    eval "$(jenv init -)"
+fi
+
 
 ### start ssh-agend ###
 SSH_ENV="$HOME/.ssh/agent-environment"
