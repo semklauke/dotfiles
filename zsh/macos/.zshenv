@@ -1,6 +1,7 @@
 # ENV + PATH VARIABLES
 # --------------------
 
+
 ## ZSH
 export ZSH_SCRIPTS="$HOME/.config/zsh"
 
@@ -77,6 +78,11 @@ export PATH="$PATH:~/.ghcup/bin"
 ## Path Unimportant
 export PATH="$PATH:/Users/semklauke/Library/Application Support/JetBrains/Toolbox/scripts"
 
+## LLVM
+export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$PATH"
+export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/llvm/lib"
+export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/llvm/include"
+
 # Compile / LD / DyLD stuff
 export DYLD_LIBRARY_PATH="$HOMEBREW_PREFIX/lib"
 export LIBRARY_PATH="$HOMEBREW_PREFIX/lib"
@@ -94,5 +100,9 @@ export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/curl/include"
 ## Compiler/lib shit
 export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/openblas/lib"
 export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/openblas/include"
+export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/libomp/lib"
+export CPPFLAGS="$ CPPFLAGS-I$HOMEBREW_PREFIX/opt/libomp/include"
 #export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/curl/lib"
 #export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/curl/include"
+
+export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$PATH"

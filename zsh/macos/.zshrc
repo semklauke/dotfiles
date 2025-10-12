@@ -167,9 +167,9 @@ fi
 ######################## PATH (beginning ->) ########################
 # add something to the beginning of PATH for priority
 export PATH="$HOMEBREW_PREFIX/opt/make/libexec/gnubin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$PATH"
 
 ## source local file
 if [ -f "$ZSH_SCRIPTS/local.sh" ]; then
     source $ZSH_SCRIPTS/local.sh
 fi
-
