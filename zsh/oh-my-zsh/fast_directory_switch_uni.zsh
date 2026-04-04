@@ -147,19 +147,29 @@ function uni-alfred() {
     local SEM=${2:-$CURRENT_SEMESTER}
     local SEMSTRING="$SEM-Semester"
     local COURSE=$(getCourseFolderName ${1})
+    local SKIPS=0
     if [[ $COURSE == "404" ]]; then
         echo "ERROR"
         return 1;
     fi
+    if [[ $SEM =~ ^-?[0-9]+$ && $SEM -lt 0 ]]; then
+        # negativ semester, hence set skips
+        SKIPS=$(($SEM*(-1)))
+        SEM=$CURRENT_SEMESTER
+        SEMSTRING="$SEM-Semester"
+    fi
     while true; do
         if [[ -d "$UNIPREFIX/$SEMSTRING/$COURSE" ]]; then
-            echo "$UNIPREFIX/$SEMSTRING/$COURSE";
-            return 0;
-        else
-            SEM=$(($SEM-1))
-            SEMSTRING="$SEM-Semester"
-            if [[ $SEM -eq 0 ]]; then break; fi
+            if [[ $SKIPS -eq 0 ]]; then
+                echo "$UNIPREFIX/$SEMSTRING/$COURSE";
+                return 0;
+            else
+                SKIPS=$(($SKIPS-1))
+            fi
         fi
+        SEM=$(($SEM-1))
+        SEMSTRING="$SEM-Semester"
+        if [[ $SEM -le 0 ]]; then break; fi
     done
     echo "No semester for ${1} found"
     return 2;
