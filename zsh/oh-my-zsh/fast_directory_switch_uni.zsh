@@ -3,7 +3,7 @@
 # Also inbetween semester
 # 
 
-export CURRENT_SEMESTER=17;
+export CURRENT_SEMESTER=18;
 function getCourseFolderName() {
     case $1 in
         progra)             echo "Programmierung" ;;
@@ -23,9 +23,7 @@ function getCourseFolderName() {
         mechanik1)          echo "Mechanik 1" ;;
         prosem)             echo "ProSem" ;;
         proseminar)         echo "ProSem" ;;
-        sem)                echo "Seminar" ;;
-        seminar)            echo "Seminar" ;;
-        hpcsem)             echo "Seminar" ;;
+        hpcsem)             echo "HPC Seminar" ;;
         cg)                 echo "Computer Graphics" ;;
         cg1)                echo "Computer Graphics" ;;
         swt)                echo "Softwaretechnick" ;;
@@ -53,7 +51,10 @@ function getCourseFolderName() {
         hiwi)               echo "../HiWi-OR" ;;
         hiwi-or)            echo "../HiWi-OR" ;;
         hiwi-or1)           echo "../HiWi-OR/WS25-OR1" ;;
-        hiwi-qm)            echo "../HiWi-OR/SS25-QM" ;;
+        hiwi-qm)            echo "../HiWi-OR/SS26-QM" ;;
+        hiwi-qm-26)         echo "../HiWi-OR/SS26-QM" ;;
+        qm)                 echo "../HiWi-OR/SS26-QM" ;;
+        hiwi-qm-25)         echo "../HiWi-OR/SS25-QM" ;;
         pmi)                echo "../HiWi-PMI" ;;
         hiwi-pmi)           echo "../HiWi-PMI" ;;
         hpc)                echo "HPC" ;;
@@ -85,14 +86,24 @@ function getCourseFolderName() {
         sprachkurs)         echo "Sprachkurs" ;;
         english)            echo "Sprachkurs" ;;
         aml)                echo "Advanced Machine Learning" ;;
+        ml2)                echo "Advanced Machine Learning" ;;
         orp)                echo "OR Praktikum" ;;
-        cgsem)              echo "CG Seminar" ;;
-        opti)               echo "Discrete and Combinatorial Optimization" ;;
-        optisem)            echo "Discrete and Combinatorial Optimization" ;;
         aos)                echo "Advanced Operating Systems" ;;
-        pqs)                echo "Post-quantum cryptography" ;;
+        pqc)                echo "Post-quantum cryptography" ;;
         sat)                echo "Satisfiability Checking" ;;
         ids)                echo "Introduction to Data Science" ;;
+        optia)              echo "Nonlinear Optimization" ;;
+        nlo)                echo "Nonlinear Optimization" ;;
+        glo)                echo "Integer Linear Optimization" ;;
+        ilo)                echo "Integer Linear Optimization" ;;
+        ma)                 echo "MA" ;;
+        cgsem)              echo "CG Seminar" ;;
+        optisem)            echo "Discrete and Combinatorial Optimization" ;;
+        satsem)             echo "Seminar Satisfiability Checking" ;;
+        disco)              echo "Discrete and Combinatorial Optimization" ;;
+        ait)                echo "Advanced Internet Technology" ;;
+        pet)                echo "Privacy Enhancing Technologies for Data Science" ;;
+        sem)                echo "Seminar Satisfiability Checking" ;;
         *)                  echo "404" ;;
     esac
 }
