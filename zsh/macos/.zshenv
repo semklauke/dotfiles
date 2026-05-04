@@ -97,6 +97,9 @@ export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/curl/include"
 #export SCIPOPTDIR="$HOMEBREW_PREFIX/Cellar/scip/9.0.0"
 #export C_INCLUDE_PATH="${C_INCLUDE_PATH}:/usr/local/scIPOptSuite-9.0.0/build/include"
 
+# AMPL
+export AMPL="/Applications/AMPL"
+
 ## Compiler/lib shit
 export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/openblas/lib"
 export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/openblas/include"
