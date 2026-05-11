@@ -1,44 +1,22 @@
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-export ZSH_CUSTOM="$ZSH/custom"
-export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
+# plain-zsh interactive shell (no oh-my-zsh)
+# layout: $ZSH_SCRIPTS holds shared lib files; this .zshrc orchestrates them.
 
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="sem"
+# colored ls (sets LS_COLORS; needed by completion list-colors zstyle)
+eval "$(dircolors)"
 
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-ZSH_AUTOSUGGEST_MANUAL_REBIND="true"
-
-HIST_STAMPS="dd.mm.yyyy"
-
-
-if [[ "$INTERACTIVE_SHELL" = 'full' ]]; then
-    source $ZSH_SCRIPTS/zshrc_full.sh
-else
-    # plugins
-    plugins=(
-        colorize 
-        aliases 
-        history-substring-search 
-        zsh-autosuggestions 
-        zsh-syntax-highlighting
-    )
-
-
-    source $ZSH/oh-my-zsh.sh
-fi
+# shared setup
+source "$ZSH_SCRIPTS/options.zsh"
+source "$ZSH_SCRIPTS/completions.zsh"
+source "$ZSH_SCRIPTS/keybindings.zsh"
+source "$ZSH_SCRIPTS/prompt.zsh"
+source "$ZSH_SCRIPTS/colorize.zsh"
+source "$ZSH_SCRIPTS/plugins.zsh"
 
 # User configuration
 export EDITOR='vim'
-
-export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-
 export PROMPT_DIRTRIM=4
 
 # Simple file navigation
-eval "`dircolors`"
 alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
 alias l='ls $LS_OPTIONS -lAGh'
@@ -65,86 +43,84 @@ alias mail-postfix="cd /etc/postfix"
 alias lkp="cd /home/semklauke/documents/lkp"
 
 # git
-function openghub() { open $(git remote get-url ${1:-origin}) ;}
+function openghub()  { open $(git remote get-url ${1:-origin}) ;}
 function cloneghub() { git clone git@github.com:${1}.git ${2} ${3} ; }
-function ghubopen() { open $(git remote get-url ${1:-origin}) ;}
+function ghubopen()  { open $(git remote get-url ${1:-origin}) ;}
 function ghubclone() { git clone git@github.com:${1}.git ${2} ${3} ; }
-function github() { git clone git@github.com:semklauke/${1}.git ${2} ; }
+function github()    { git clone git@github.com:semklauke/${1}.git ${2} ; }
 
 # tooling
 function tool() { ~/tools/$@.sh; }
 alias tools='ls -l  ~/tools | awk '\''{ if (NR>1) print substr($9, 1, length($9)-3) }'\'''
 
-# rust
-function load-rustup() { source ~/.oh-my-zsh/custom/rustup }
+# rust: completion is autoloaded from $ZSH_SCRIPTS/completions/_rustup;
+# keep this for backward compat with prior workflow.
+function load-rustup() { source "$ZSH_SCRIPTS/completions/_rustup"; }
 
 # usefull
 alias zshrc="$EDITOR ~/.zshrc"
 alias zshenv="$EDITOR ~/.zshenv"
-alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'
 
 # virtual env
-function activate_virtualenv()
-{
+function activate_virtualenv() {
     local VIRTUALENV_DIRECTORY=${1:-'venv'}
     local PATH_TO_VIRTUALENV=$(pwd)
 
-    # move up the path tree, but stop at root node
     while [ "$PATH_TO_VIRTUALENV" != '/' ]
     do
-        # is virtualenv's "activate" script accessible from current
-        # directory?
         if [ -r "$PATH_TO_VIRTUALENV/$VIRTUALENV_DIRECTORY/bin/activate" ]
         then
             echo "Starting virtual environment:"
             echo "$PATH_TO_VIRTUALENV/$VIRTUALENV_DIRECTORY"
-
-            # run "activate" script
             source "$PATH_TO_VIRTUALENV/$VIRTUALENV_DIRECTORY/bin/activate"
-
-            # signal success
             return 0
         fi
-
-        # move up the path to parent directory
         PATH_TO_VIRTUALENV=$(dirname "$PATH_TO_VIRTUALENV")
     done
 
-    # signal failure
     return 1
 }
 alias activate_venv=activate_virtualenv
 
-# start pyenv if installed
+# pyenv: deferred — `pyenv init` forks python and is the single slowest
+# thing in shell startup (~100ms). PYENV_ROOT/bin is already in PATH from
+# .zshenv so the `pyenv` command itself works immediately; only shims for
+# python/pip arrive after the first prompt.
 if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init - zsh)"
-    eval "$(pyenv virtualenv-init -)"
+    _load_pyenv() {
+        eval "$(pyenv init - zsh)"
+        eval "$(pyenv virtualenv-init -)"
+    }
+    zsh-defer _load_pyenv
 fi
 
-# start jenv if installed
+# jenv: deferred for the same reason
 if command -v jenv 1>/dev/null 2>&1; then
-    eval "$(jenv init -)"
+    _load_jenv() {
+        eval "$(jenv init -)";
+        jenv enable-plugin export;
+    }
+    zsh-defer _load_jenv
 fi
 
-### start ssh-agend ###
+### ssh-agent (deferred) ###
 SSH_ENV="$HOME/.ssh/agent-environment"
 function start_agent {
     echo "Initialising new SSH agent..."
     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
     chmod 600 "${SSH_ENV}"
     . "${SSH_ENV}" > /dev/null
-    /usr/bin/ssh-add;
+    /usr/bin/ssh-add
 }
-# Source SSH settings, if applicable
-if [ -f "${SSH_ENV}" ]; then
-    . "${SSH_ENV}" > /dev/null
-    #ps ${SSH_AGENT_PID} doesn't work under cywgin
-    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-        start_agent;
-    }
-else
-    start_agent;
-fi
+_ssh_agent_setup() {
+    if [ -f "${SSH_ENV}" ]; then
+        . "${SSH_ENV}" > /dev/null
+        ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || start_agent
+    else
+        start_agent
+    fi
+}
+zsh-defer _ssh_agent_setup
 
 
 ## IMPORTANT PATH
@@ -153,5 +129,5 @@ export PATH="/usr/lib/llvm-16/bin:$PATH"
 
 ## source local file
 if [ -f "$ZSH_SCRIPTS/local.sh" ]; then
-    source $ZSH_SCRIPTS/local.sh
+    source "$ZSH_SCRIPTS/local.sh"
 fi

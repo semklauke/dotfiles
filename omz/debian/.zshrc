@@ -1,18 +1,15 @@
-# ZSH Settings
+# Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$ZSH/custom"
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="sem"
 
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-ZSH_DISABLE_COMPFIX=true
 ZSH_AUTOSUGGEST_MANUAL_REBIND="true"
 
 HIST_STAMPS="dd.mm.yyyy"
-
-# brew autocompletion
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 
 if [[ "$INTERACTIVE_SHELL" = 'full' ]]; then
@@ -21,7 +18,8 @@ else
     # plugins
     plugins=(
         colorize 
-        macos 
+        aliases 
+        history-substring-search 
         zsh-autosuggestions 
         zsh-syntax-highlighting
     )
@@ -31,33 +29,40 @@ else
 fi
 
 # User configuration
+export EDITOR='vim'
 
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export EDITOR='subl -w'
+
 export PROMPT_DIRTRIM=4
 
 # Simple file navigation
-alias l='ls -AlGh'
+eval "`dircolors`"
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias l='ls $LS_OPTIONS -lAGh'
 alias ..="cd ..; l;"
 alias size="sudo du -sh"
-alias edit="subl"
+alias edit="$EDITOR"
 alias ff="find . -type f -name"
 alias fdd="find . -type d -name"
-function projects() {  cd /Users/semklauke/Documents/Projects/$@ ;}
-alias sciebo="cd /Users/semklauke/sciebo"
 
 # Network status
 alias ping8="ping 8.8.8.8"
-alias openPorts='sudo lsof -nP -i4TCP | grep LISTEN'
-alias openUDPPorts='sudo lsof -nP -i4UDP | grep LISTEN'
-alias networkstatus="/Users/semklauke/tools/network_status.sh"
+alias openPorts="sudo netstat -lnp"
+alias networkstatus="tool network_status"
 alias nstat="networkstatus"
 alias netstatus="networkstatus"
 
-# open website
-function openw() { open "http://$@"; }
+# fast dir switching
+alias dns="cd /etc/bind/zone_semklauke.de"
+alias dnsserver="dns"
+alias webserver="cd /etc/nginx/"
+alias teamspeak="cd /home/teamspeak/server"
+alias minecraft="cd /home/minecraft/server; su minecraft"
+alias mail-postfix="cd /etc/postfix"
+alias lkp="cd /home/semklauke/documents/lkp"
 
 # git
 function openghub() { open $(git remote get-url ${1:-origin}) ;}
@@ -70,27 +75,13 @@ function github() { git clone git@github.com:semklauke/${1}.git ${2} ; }
 function tool() { ~/tools/$@.sh; }
 alias tools='ls -l  ~/tools | awk '\''{ if (NR>1) print substr($9, 1, length($9)-3) }'\'''
 
-function spotify-cli() { spicetify $@; }
-
 # rust
 function load-rustup() { source ~/.oh-my-zsh/custom/rustup }
 
 # usefull
-alias zshrc="subl ~/.zshrc"
-alias zshenv="subl ~/.zshenv"
-alias x86="arch -x86_64 /bin/zsh"
+alias zshrc="$EDITOR ~/.zshrc"
+alias zshenv="$EDITOR ~/.zshenv"
 alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'
-
-# stuff
-#alias dl="ls -Art ~/Downloads/ | grep -v .DS_Store |  tail -n 1 | xargs -I %  mv ~/Downloads/%"
-function dl() {
-    local TARGET=${1:-'./'}
-    local N=${2:-'1'}
-    repeat $N {
-        ls -Art ~/Downloads/ | grep -v .DS_Store |  tail -n 1 | xargs -I %  mv ~/Downloads/% $TARGET
-    }
-}
-alias dll="dl ./"
 
 # virtual env
 function activate_virtualenv()
@@ -124,12 +115,6 @@ function activate_virtualenv()
 }
 alias activate_venv=activate_virtualenv
 
-# load full interactive shell
-full() {
-    source $ZSH_SCRIPTS/zshrc_full.sh
-    echo "Done."
-}
-
 # start pyenv if installed
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init - zsh)"
@@ -139,8 +124,8 @@ fi
 # start jenv if installed
 if command -v jenv 1>/dev/null 2>&1; then
     eval "$(jenv init -)"
+    jenv enable-plugin export;
 fi
-
 
 ### start ssh-agend ###
 SSH_ENV="$HOME/.ssh/agent-environment"
@@ -151,7 +136,6 @@ function start_agent {
     . "${SSH_ENV}" > /dev/null
     /usr/bin/ssh-add;
 }
-
 # Source SSH settings, if applicable
 if [ -f "${SSH_ENV}" ]; then
     . "${SSH_ENV}" > /dev/null
@@ -164,10 +148,9 @@ else
 fi
 
 
-######################## PATH (beginning ->) ########################
-# add something to the beginning of PATH for priority
-export PATH="$HOMEBREW_PREFIX/opt/make/libexec/gnubin:$PATH"
-export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$PATH"
+## IMPORTANT PATH
+export PATH="/usr/lib/llvm-16/bin:$PATH"
+
 
 ## source local file
 if [ -f "$ZSH_SCRIPTS/local.sh" ]; then

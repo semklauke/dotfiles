@@ -1,27 +1,37 @@
 #!/bin/bash
 
 ## USAGE:
-## ./install.sh <shell> <system> <?homefolder>
-## shell = zsh | bash
+## ./install.sh <shell> <system> [<interactive_mode>] [<homefolder>]
+## shell  = zsh  (plain zsh, no oh-my-zsh — debian only for now)
+##        | omz  (legacy oh-my-zsh setup, debian|macos)
+##        | bash
 ## system = macos | debian
-## homefolder is default ~
+## interactive_mode (omz/bash only) = basic | full   (default: basic)
+## homefolder default is ~
 
 INSTALL_SHELL=$1
 INSTALL_SYSTEM=$2
 INSTALL_INTERACTIVE=${3:-"basic"}
 INSTALL_LOCATION=${4:-~}
+
 # check input
-USAGE_PROMT="Usage ./install.sh <shell> <system> <?full> <?homefolder>\n"\
-"- <shell> must be 'zsh' or 'bash'\n"\
+USAGE_PROMT="Usage ./install.sh <shell> <system> [<interactive_mode>] [<homefolder>]\n"\
+"- <shell> must be 'zsh', 'omz' or 'bash'\n"\
 "- <system> must be 'macos' or 'debian'\n"\
-"- <full> 'full' or 'basic' interactive shell. Default 'basic'\n"\
+"- <interactive_mode> 'full' or 'basic' (omz/bash only). Default 'basic'\n"\
 "- <homefolder> default is ~/\n"
 if ! [ "$INSTALL_SYSTEM" = "macos" -o "$INSTALL_SYSTEM" = "debian" ]; then
     printf "$USAGE_PROMT"
     exit 1
 fi
-if ! [ "$INSTALL_SHELL" = "zsh" -o "$INSTALL_SHELL" = "bash" ]; then
+if ! [ "$INSTALL_SHELL" = "zsh" -o "$INSTALL_SHELL" = "omz" -o "$INSTALL_SHELL" = "bash" ]; then
     printf "$USAGE_PROMT"
+    exit 1
+fi
+# plain zsh is debian-only for now
+if [ "$INSTALL_SHELL" = "zsh" -a "$INSTALL_SYSTEM" != "debian" ]; then
+    printf "plain 'zsh' is currently debian-only — use 'omz' for macos.\n"
+    printf "See migrate_zsh.md for the macos migration plan.\n"
     exit 1
 fi
 if [ "$INSTALL_LOCATION" != "~" ]; then
@@ -56,7 +66,19 @@ install_file () {
         fi
     else
         printf "> $(tput setaf 2)Installed$(tput cuf 2)$(tput sgr0) $2\n"
+        mkdir -p "$(dirname "$to")"
         cp $from $to
+    fi
+}
+
+# clone a git repo, or fast-forward if it already exists
+clone_or_pull () {
+    url=$1
+    dir=$2
+    if [ ! -d "$dir" ]; then
+        git clone -q "$url" "$dir" > /dev/null
+    else
+        git -C "$dir" pull -q --ff-only > /dev/null
     fi
 }
 
@@ -68,6 +90,37 @@ printf -- "$(tput bold)---- Starting install in $INSTALL_LOCATION ----$(tput sgr
 
 case $INSTALL_SHELL in
     zsh)
+        # plain zsh — no oh-my-zsh dependency
+        # Everything (lib files, plugins, completions, compdump cache) lives
+        # under ~/.zsh/. Only .zshrc and .zshenv stay in $HOME.
+        mkdir -p "$INSTALL_LOCATION/.zsh/completions"
+        mkdir -p "$INSTALL_LOCATION/.zsh/plugins"
+
+        install_file .zshenv .zshenv
+        install_file .zshrc  .zshrc
+
+        # shared lib files (sourced by .zshrc from $ZSH_SCRIPTS = ~/.zsh)
+        install_file ../lib/options.zsh      .zsh/options.zsh
+        install_file ../lib/completions.zsh  .zsh/completions.zsh
+        install_file ../lib/keybindings.zsh  .zsh/keybindings.zsh
+        install_file ../lib/prompt.zsh       .zsh/prompt.zsh
+        install_file ../lib/colorize.zsh     .zsh/colorize.zsh
+        install_file ../lib/plugins.zsh      .zsh/plugins.zsh
+
+        # rustup completion (autoloaded via fpath)
+        install_file ../completions/_rustup  .zsh/completions/_rustup
+
+        # external plugins
+        clone_or_pull https://github.com/romkatv/zsh-defer.git \
+            "$INSTALL_LOCATION/.zsh/plugins/zsh-defer"
+        clone_or_pull https://github.com/zsh-users/zsh-autosuggestions.git \
+            "$INSTALL_LOCATION/.zsh/plugins/zsh-autosuggestions"
+        clone_or_pull https://github.com/zsh-users/zsh-syntax-highlighting.git \
+            "$INSTALL_LOCATION/.zsh/plugins/zsh-syntax-highlighting"
+        ;;
+
+    omz)
+        # legacy: oh-my-zsh-based setup
         if ! [ -d "$INSTALL_LOCATION/.oh-my-zsh/custom" ]; then
             printf "Install Oh-my-zsh. Or the folder '$INSTALL_LOCATION/.oh-my-zsh/custom' is missing\n"
             exit 2
@@ -91,20 +144,22 @@ case $INSTALL_SHELL in
             install_file ../oh-my-zsh/fast_directory_switch_uni.zsh $ZSH_CUSTOM_DIR/fast_directory_switch_uni.zsh
         fi
 
-        # set basic or full interative shell
-        echo -e "\nINTERACTIVE_SHELL=$INSTALL_INTERACTIVE" >> $INSTALL_LOCATION/.zshenv
+        # set basic or full interactive shell (write the mode into a dedicated
+        # file rather than appending to .zshenv each run — appending used to
+        # pile up duplicate INTERACTIVE_SHELL lines on re-install).
+        MODE_FILE="$INSTALL_LOCATION/.config/zsh/interactive_mode"
+        echo "export INTERACTIVE_SHELL=$INSTALL_INTERACTIVE" > "$MODE_FILE"
+        # ensure .zshenv sources it (idempotent)
+        if ! grep -q 'interactive_mode' "$INSTALL_LOCATION/.zshenv" 2>/dev/null; then
+            printf '\n[ -f "$HOME/.config/zsh/interactive_mode" ] && source "$HOME/.config/zsh/interactive_mode"\n' \
+                >> "$INSTALL_LOCATION/.zshenv"
+        fi
 
         # install extern plugins
-        if ! [ -d "$INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions" ]; then
-            git clone -q https://github.com/zsh-users/zsh-autosuggestions $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions > /dev/null
-        else
-            git -C $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions pull -q --ff-only > /dev/null
-        fi
-        if ! [ -d "$INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-syntax-highlighting" ]; then
-            git clone -q https://github.com/zsh-users/zsh-syntax-highlighting.git $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-syntax-highlighting > /dev/null
-        else
-            git -C $INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-syntax-highlighting pull -q --ff-only > /dev/null
-        fi
+        clone_or_pull https://github.com/zsh-users/zsh-autosuggestions \
+            "$INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions"
+        clone_or_pull https://github.com/zsh-users/zsh-syntax-highlighting.git \
+            "$INSTALL_LOCATION/$ZSH_CUSTOM_DIR/plugins/zsh-syntax-highlighting"
         ;;
 
     bash)
@@ -113,7 +168,7 @@ case $INSTALL_SHELL in
         install_file .bash_aliases .bash_aliases
         if [ "$INSTALL_SYSTEM" = "macos" ]; then
             mkdir -p $INSTALL_LOCATION/.bash
-            install_file ../oh-my-zsh/fast_directory_switch_uni.zsh .bash/fast_directory_switch_uni.sh 
+            install_file ../../omz/oh-my-zsh/fast_directory_switch_uni.zsh .bash/fast_directory_switch_uni.sh
         fi
         # set basic or full interative shell
         echo -e "\nINTERACTIVE_SHELL=$INSTALL_INTERACTIVE" >> $INSTALL_LOCATION/.bash_profile
@@ -129,7 +184,7 @@ esac
 install_file ../../git/.gitconfig .gitconfig "keep"
 install_file ../../git/.gitignore_global .gitignore_global "overwrite"
 install_file ../../configs/vimrc .vimrc "keep"
-install_file ../../config/default-python-packages .config/default-python-packages "overwrite"
+#install_file ../../config/default-python-packages .config/default-python-packages "overwrite"
 #install_file ../../config/asdfrc .config/asdfrc "overwrite"
 
 printf -- "$(tput bold)---- Done ----$(tput sgr0)\n"
@@ -142,7 +197,7 @@ fi
 # show command to delete all diff files
 if ! [ ${#DIFF_FILES[@]} -eq 0 ]; then
     joined_diff_files=$(printf " %s" "${DIFF_FILES[@]}")
-    
+
     printf -- "If you want to remove all of the .diff files execute\n"
     printf "rm ${joined_diff_files:1}\n"
     if [[ "$INSTALL_SYSTEM" == "macos" ]]; then
