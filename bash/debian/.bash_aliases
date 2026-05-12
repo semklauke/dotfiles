@@ -1,6 +1,10 @@
 # Path exports
 export LS_OPTIONS='--color=auto'
 
+# User configuration
+export EDITOR='vim'
+export PROMPT_DIRTRIM=4
+
 #Simple file navigation
 eval "`dircolors`"
 alias ls='ls $LS_OPTIONS'
@@ -8,6 +12,10 @@ alias ll='ls $LS_OPTIONS -l'
 alias l='ls $LS_OPTIONS -lAGh'
 alias ..="cd ..; l;"
 alias size="sudo du -sh"
+alias edit="$EDITOR"
+alias ff="find . -type f -name"
+alias fdd="find . -type d -name"
+
 
 
 #Network status

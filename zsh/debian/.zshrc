@@ -12,6 +12,10 @@ source "$ZSH_SCRIPTS/prompt.zsh"
 source "$ZSH_SCRIPTS/colorize.zsh"
 source "$ZSH_SCRIPTS/plugins.zsh"
 
+# Debian visual marker: hostname in muted Debian red
+PROMPT='%f%n@%F{124}%M%f:%F{004} %6~%f${vcs_info_msg_0_}
+%* %F{001}❯ %f'
+
 # User configuration
 export EDITOR='vim'
 export PROMPT_DIRTRIM=4

@@ -148,6 +148,11 @@ else
 fi
 
 
+# Debian visual marker: hostname in muted Debian red
+PROMPT='%{$reset_color%}%n@%{$FG[124]%}%M%{$reset_color%}:%{$FG[004]%} %6~%{$reset_color%}
+%* %{$FG[001]%}❯ %{$reset_color%}'
+
+
 ## IMPORTANT PATH
 export PATH="/usr/lib/llvm-16/bin:$PATH"
 

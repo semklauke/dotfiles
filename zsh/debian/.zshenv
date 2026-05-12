@@ -27,7 +27,7 @@ export CPPFLAGS="-I/usr/local/opt/openssl@3/include"
 # lua OpenSSL
 export OPENSSL_DIR=/usr/local/opt/openssl@3/
 
-. "$HOME/.cargo/env"
+#. "$HOME/.cargo/env"
 export PATH="/usr/local/bin/:${PATH}"
 
 # java

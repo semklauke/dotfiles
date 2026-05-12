@@ -14,6 +14,11 @@ export JAVA_HOME=/usr/lib/jvm/jdk-18
 PATH="$PATH:$JAVA_HOME/bin"
 PATH="$HOME/.jenv/bin:$PATH"
 
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+[[ -d "$PYENV_ROOT/shims" ]] && export PATH="$PYENV_ROOT/shims:$PATH"
+
 export PATH
 
 # OpenSSL
@@ -25,7 +30,7 @@ export CPPFLAGS="-I/usr/local/opt/openssl@3/include"
 export OPENSSL_DIR=/usr/local/opt/openssl@3/
 
 ## Rust
-. "$HOME/.cargo/env"
+#. "$HOME/.cargo/env"
 
 ## MySql
 export PATH=${PATH}:/usr/local/mysql/bin
@@ -38,7 +43,8 @@ export GOPATH="$HOME/Go"
 
 # start pyenv if installed
 if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
+    eval "$(pyenv init - zsh)"
+    eval "$(pyenv virtualenv-init -)"
 fi
 
 # start jenv if installed
@@ -48,7 +54,7 @@ if command -v jenv 1>/dev/null 2>&1; then
 fi
 
 # asdf
-. "$HOME/.asdf/asdf.sh"
+#. "$HOME/.asdf/asdf.sh"
 
 # load aliases
 if [ -f ~/.bash_aliases ]; then
