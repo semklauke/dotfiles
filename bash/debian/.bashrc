@@ -43,7 +43,7 @@ export GOPATH="$HOME/Go"
 
 # start pyenv if installed
 if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init - zsh)"
+    eval "$(pyenv init - bash)"
     eval "$(pyenv virtualenv-init -)"
 fi
 
