@@ -15,9 +15,9 @@ PATH="$PATH:$JAVA_HOME/bin"
 PATH="$HOME/.jenv/bin:$PATH"
 
 # pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-[[ -d "$PYENV_ROOT/shims" ]] && export PATH="$PYENV_ROOT/shims:$PATH"
+# export PYENV_ROOT="$HOME/.pyenv"
+# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+# [[ -d "$PYENV_ROOT/shims" ]] && export PATH="$PYENV_ROOT/shims:$PATH"
 
 export PATH
 
@@ -42,10 +42,10 @@ export GOPATH="$HOME/Go"
 #export PATH="$PATH:$GOROOT/bin"
 
 # start pyenv if installed
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init - bash)"
-    eval "$(pyenv virtualenv-init -)"
-fi
+# if command -v pyenv 1>/dev/null 2>&1; then
+#     eval "$(pyenv init - bash)"
+#     eval "$(pyenv virtualenv-init -)"
+# fi
 
 # start jenv if installed
 if command -v jenv 1>/dev/null 2>&1; then
