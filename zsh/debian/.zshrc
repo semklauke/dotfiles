@@ -4,6 +4,8 @@
 # colored ls (sets LS_COLORS; needed by completion list-colors zstyle)
 eval "$(dircolors)"
 
+ZSH_PROMPT_STYLE=rich
+
 # shared setup
 source "$ZSH_SCRIPTS/options.zsh"
 source "$ZSH_SCRIPTS/completions.zsh"
@@ -11,8 +13,6 @@ source "$ZSH_SCRIPTS/keybindings.zsh"
 source "$ZSH_SCRIPTS/prompt.zsh"
 source "$ZSH_SCRIPTS/colorize.zsh"
 source "$ZSH_SCRIPTS/plugins.zsh"
-
-ZSH_PROMPT_STYLE=rich
 
 # Debian visual marker: bold hostname. Keep the git segment from prompt.zsh
 if [[ ${ZSH_PROMPT_STYLE:-simple} == rich ]]; then
