@@ -12,9 +12,16 @@ source "$ZSH_SCRIPTS/prompt.zsh"
 source "$ZSH_SCRIPTS/colorize.zsh"
 source "$ZSH_SCRIPTS/plugins.zsh"
 
-# Debian visual marker: hostname in muted Debian red
-PROMPT='%f%n@%F{124}%M%f:%F{004} %6~%f${vcs_info_msg_0_}
+ZSH_PROMPT_STYLE=rich
+
+# Debian visual marker: bold hostname. Keep the git segment from prompt.zsh
+if [[ ${ZSH_PROMPT_STYLE:-simple} == rich ]]; then
+    PROMPT='%f%n@%B%M%b%f:%F{004} %6~%f${GIT_PROMPT}
 %* %F{001}❯ %f'
+else
+    PROMPT='%f%n@%B%M%b%f:%F{004} %6~%f${vcs_info_msg_0_}
+%* %F{001}❯ %f'
+fi
 
 # User configuration
 export EDITOR='vim'

@@ -9,7 +9,7 @@ else
 fi
 
 # Settings consumed by the plugins below must be set before they load.
-ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+#ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 # Heavy plugins: deferred until after first prompt renders.
 # zsh-syntax-highlighting must be the last thing to modify ZLE widgets;
