@@ -39,35 +39,66 @@ if [ "$INSTALL_LOCATION" != "~" ]; then
 fi
 
 INSTALL_FROM=$(dirname "$0")/$INSTALL_SHELL/$INSTALL_SYSTEM
+REPO_ROOT=$(cd "$(dirname "$0")" && pwd)
 DIFF_FILES=()
+
+# How far back to look when deciding whether a local file is just an
+# older revision of the repo file (rather than a real local edit).
+HISTORY_DEPTH=3
+
+# Returns 0 if $1's content matches any of the last $HISTORY_DEPTH
+# versions of repo path $2 — i.e., $to was installed from a recent
+# commit and the user hasn't edited it locally. Used to silently update
+# after a `git pull` instead of warning as if the user had made changes.
+matches_history () {
+    local file=$1 rel=$2 to_blob
+    to_blob=$(git -C "$REPO_ROOT" hash-object "$file" 2>/dev/null) || return 1
+    git -C "$REPO_ROOT" log -n "$HISTORY_DEPTH" --pretty=format: --raw -- "$rel" 2>/dev/null \
+        | awk '{print $4}' | grep -qx "$to_blob"
+}
 
 install_file () {
     from=$INSTALL_FROM/$1
     to=$INSTALL_LOCATION/$2
     overwrite=${3:-"overwrite"}
 
-    if [ -f "$to" ]; then
-        if ! diff $to $from  > $to.diff; then
-            if [ $overwrite = "overwrite" ]; then
-                DIFF_FILES+=( "$to.diff" )
-                rm $to
-                cp $from $to
-                printf "> $(tput setaf 1)Overwritten$(tput sgr0) $2\n"
-                printf "  See $to.diff\n"
-            else
-                printf "> $(tput setaf 3)Keeping$(tput cuf 4)$(tput sgr0) $2\n"
-                printf "  Replace manually with: cp -rf $from $to\n"
-                rm "$to.diff"
-            fi
-        else
-            rm "$to.diff"
-            printf "> $(tput setaf 2)Installed$(tput cuf 2)$(tput sgr0) $2\n"
-            cp $from $to
-        fi
-    else
-        printf "> $(tput setaf 2)Installed$(tput cuf 2)$(tput sgr0) $2\n"
+    # Fresh install
+    if [ ! -f "$to" ]; then
         mkdir -p "$(dirname "$to")"
         cp $from $to
+        printf "> $(tput setaf 2)Installed$(tput cuf 2)$(tput sgr0) $2\n"
+        return
+    fi
+
+    # Already up to date
+    if cmp -s "$from" "$to"; then
+        cp $from $to
+        printf "> $(tput setaf 2)Installed$(tput cuf 2)$(tput sgr0) $2\n"
+        return
+    fi
+
+    # $to matches a recent historical version of $from → repo moved
+    # forward but the user didn't touch the local file. Silent overwrite.
+    abs_from=$(cd "$(dirname "$from")" && pwd)/$(basename "$from")
+    rel_from=${abs_from#$REPO_ROOT/}
+    if matches_history "$to" "$rel_from"; then
+        cp $from $to
+        printf "> $(tput setaf 2)Installed$(tput cuf 2)$(tput sgr0) $2\n"
+        return
+    fi
+
+    # Real local divergence
+    diff $to $from > $to.diff
+    if [ "$overwrite" = "overwrite" ]; then
+        DIFF_FILES+=( "$to.diff" )
+        rm $to
+        cp $from $to
+        printf "> $(tput setaf 1)Overwritten$(tput sgr0) $2\n"
+        printf "  See $to.diff\n"
+    else
+        printf "> $(tput setaf 3)Keeping$(tput cuf 4)$(tput sgr0) $2\n"
+        printf "  Replace manually with: cp -rf $from $to\n"
+        rm "$to.diff"
     fi
 }
 
