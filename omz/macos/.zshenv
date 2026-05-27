@@ -103,8 +103,8 @@ export AMPL="/Applications/AMPL"
 ## Compiler/lib shit
 export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/openblas/lib"
 export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/openblas/include"
-export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/libomp/lib"
-export CPPFLAGS="$ CPPFLAGS-I$HOMEBREW_PREFIX/opt/libomp/include"
+# export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/libomp/lib"
+# export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/libomp/include"
 #export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/curl/lib"
 #export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/curl/include"
 
