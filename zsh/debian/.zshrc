@@ -114,6 +114,15 @@ if command -v jenv 1>/dev/null 2>&1; then
     zsh-defer _load_jenv
 fi
 
+# nvm
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+    _load_nvm() {
+        \. "$NVM_DIR/nvm.sh"
+        unfunction _load_nvm
+    }
+    zsh-defer _load_nvm
+fi
+
 ### ssh-agent (deferred) ###
 SSH_ENV="$HOME/.ssh/agent-environment"
 function start_agent {
