@@ -38,7 +38,6 @@ The macOS configuration additionally includes:
 
 - Finder, Terminal, iTerm2, Hyper, Ghostty, Xcode, Quick Look, VNC, and
   `.DS_Store` helpers;
-- Apple Music and Spotify command-line controls;
 - project, GitHub, download, network, and university-directory shortcuts;
 - Homebrew, OpenSSL, Go, Java, Python, Rust, LLVM, AMPL, and compiler paths.
 
@@ -89,40 +88,16 @@ performs shallow clones of:
 | [`zsh-users/zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions) | Suggests commands from history. |
 | [`zsh-users/zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting) | Highlights the current command line. |
 | [`zsh-users/zsh-history-substring-search`](https://github.com/zsh-users/zsh-history-substring-search) | Searches for history entries containing the typed text. |
-| [`hnarayanan/shpotify`](https://github.com/hnarayanan/shpotify) | Provides `spotify` on macOS. |
 
 On later installer runs, these checkouts are updated with `git pull
 --ff-only`. A missing network connection or a locally diverged plugin checkout
 causes the installation to stop rather than silently replacing plugin files.
 
-## Music and Spotify
+## Spicetify
 
-These are three separate integrations:
-
-- `music` and the deprecated-compatible `itunes` alias are a lightweight local
-  replacement for the corresponding Oh My Zsh macOS-plugin feature. The code
-  lives in `zsh/lib/macos.zsh`, calls macOS `osascript` only when invoked, and
-  controls Music.app directly. Examples: `music play`, `music next`, `music
-  vol 50`, `music status`, and `music shuffle toggle`.
-- `spotify` is a small wrapper around the `hnarayanan/shpotify` checkout that
-  the installer places in `~/.zsh/plugins/shpotify`. The Spotify desktop app is
-  required. Searching and playing music by name additionally requires Spotify
-  API credentials in `~/.shpotify.cfg`; see the [upstream shpotify
-  README](https://github.com/hnarayanan/shpotify#connecting-to-spotifys-api) for
-  its `CLIENT_ID` and `CLIENT_SECRET` setup. Shpotify is also the upstream tool
-  from which Oh My Zsh's Spotify helper is derived.
-- `spotify-cli` forwards arguments to `spicetify`. Spicetify is optional and is
-  not installed by this repository.
-
-Example Spotify commands:
-
-```sh
-spotify play
-spotify play artist "Artist Name"
-spotify next
-spotify status
-spotify vol up
-```
+The macOS configuration keeps the existing `spotify-cli` function, which
+forwards its arguments to `spicetify`. Spicetify is optional and is not
+installed by this repository.
 
 ## Installer behavior
 

@@ -234,10 +234,6 @@ case $INSTALL_SHELL in
             "$INSTALL_LOCATION/.zsh/plugins/zsh-syntax-highlighting" || exit 3
         clone_or_pull https://github.com/zsh-users/zsh-history-substring-search.git \
             "$INSTALL_LOCATION/.zsh/plugins/zsh-history-substring-search" || exit 3
-        if [ "$INSTALL_SYSTEM" = "macos" ]; then
-            clone_or_pull https://github.com/hnarayanan/shpotify.git \
-                "$INSTALL_LOCATION/.zsh/plugins/shpotify" || exit 3
-        fi
         ;;
 
     omz)
