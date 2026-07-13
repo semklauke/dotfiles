@@ -44,3 +44,4 @@ export LC_ALL=en_US.UTF-8
 export LS_OPTIONS='--color=auto'
 
 export PATH="/usr/lib/llvm-16/bin:$PATH"
+[ -f "$HOME/.config/zsh/interactive_mode" ] && source "$HOME/.config/zsh/interactive_mode"

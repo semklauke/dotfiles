@@ -9,7 +9,13 @@ else
 fi
 
 # Settings consumed by the plugins below must be set before they load.
-#ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+# This plugin provides real substring matching (the built-in Zsh widgets only
+# match prefixes). It must be available before keybindings.zsh is sourced.
+if [[ -r "$ZSH_PLUGINS/zsh-history-substring-search/zsh-history-substring-search.zsh" ]]; then
+    source "$ZSH_PLUGINS/zsh-history-substring-search/zsh-history-substring-search.zsh"
+fi
 
 # Heavy plugins: deferred until after first prompt renders.
 # zsh-syntax-highlighting must be the last thing to modify ZLE widgets;

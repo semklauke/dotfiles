@@ -109,3 +109,4 @@ export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/openblas/include"
 #export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/curl/include"
 
 export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$PATH"
+[ -f "$HOME/.config/zsh/interactive_mode" ] && source "$HOME/.config/zsh/interactive_mode"

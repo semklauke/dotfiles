@@ -1,0 +1,19 @@
+#compdef mix
+
+# Ask Mix for its current task list at completion time. This includes project
+# and dependency tasks and avoids the stale hard-coded task list from OMZ.
+_mix() {
+    local -a tasks
+    local line name description
+
+    while IFS= read -r line; do
+        [[ $line == 'mix '*'# '* ]] || continue
+        name=${${line#mix }%% *}
+        description=${line#*# }
+        tasks+=("${name}:${description}")
+    done < <(command mix help 2>/dev/null)
+
+    _describe -t tasks 'mix task' tasks
+}
+
+_mix "$@"
