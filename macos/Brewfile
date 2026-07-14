@@ -1,0 +1,156 @@
+# Install on a new Mac with: brew bundle install --file=Brewfile
+
+tap "pluk-inc/tap", trusted: { formula: "markdown-preview" }
+tap "simnalamburt/x", trusted: { formula: "totp" }
+tap "riscv-software-src/riscv", trusted: true
+
+#########################################
+### programming languages & ecosystem ###
+#########################################
+
+# C
+brew "clang-format"
+brew "cmake"
+brew "gcc"
+brew "gdb"
+brew "llvm"
+# Julia
+brew "juliaup"
+# Lua
+brew "lua"
+brew "luajit"
+brew "luarocks"
+# Erlang + Elixir
+brew "erlang"
+brew "elixir"
+# Go
+brew "go"
+# Python
+brew "jupyterlab"
+brew "pyenv"
+brew "pyenv-virtualenv"
+# Java
+brew "jenv"
+brew "openjdk"
+brew "openjdk@17"
+# Ruby
+brew "ruby"
+# Rust
+brew "rustup"
+# Haskell
+brew "haskell-language-server"
+brew "haskell-stack"
+# JS + TS
+brew "node"
+brew "nvm"
+# Perl
+brew "perl"
+
+#############
+### Tools ###
+#############
+
+brew "ampl-asl"
+brew "bear"
+brew "bison"
+brew "cadical"
+brew "coreutils"
+brew "countdown"
+brew "cowsay"
+brew "htop"
+brew "hwloc"
+brew "jsonlint"
+brew "ffmpeg"
+brew "md-tui"
+brew "minisat"
+brew "mkcert"
+brew "mmv"
+brew "ncspot"
+brew "neovim"
+brew "nmap"
+brew "openconnect"
+brew "osx-cpu-temp"
+brew "parallel"
+brew "poppler"
+brew "qemu"
+brew "rename"
+brew "riscv64-elf-gdb"
+brew "scip"
+brew "smartmontools"
+brew "spicetify-cli"
+brew "telnet"
+brew "tree"
+brew "wakeonlan"
+brew "pandoc"
+brew "readline"
+brew "z3"
+brew "simnalamburt/x/totp", args: ["build-from-source"]
+
+############
+### Libs ###
+############
+
+brew "libb2"
+brew "openblas"
+brew "openssl@3"
+brew "protobuf"
+brew "wget"
+brew "xz"
+brew "zlib"
+brew "sqlite"
+
+#############
+### Casks ###
+#############
+
+cask "affinity"
+cask "alfred"
+cask "audio-hijack"
+cask "claude-code@latest"
+cask "codex"
+cask "discord"
+cask "divvy"
+cask "dropbox"
+cask "geogebra"
+cask "google-chrome"
+cask "iina"
+cask "inkscape"
+cask "iterm2"
+cask "libreoffice"
+cask "loopback"
+cask "mactex-no-gui"
+cask "pluk-inc/tap/markdown-preview"
+cask "mattermost"
+cask "mitmproxy"
+cask "moneymoney"
+cask "notunes"
+cask "obsidian"
+cask "pdf-expert"
+cask "sage"
+cask "setapp"
+cask "skim"
+cask "soundsource"
+cask "spotify"
+cask "sublime-merge"
+cask "sublime-text"
+cask "telegram"
+cask "texifier"
+cask "tikzit"
+cask "transmission"
+cask "transmit"
+cask "vanilla"
+cask "visual-studio-code"
+cask "wireshark-app"
+cask "xquartz"
+cask "zoom"
+cask "zotero"
+
+#####################
+### Mac App Store ###
+#####################
+brew "mas"
+mas "Things", id: 904280696
+mas "Tag Editor 2", id: 984278082
+mas "Notability", id: 360593530
+mas "Markdown Editor", id: 1458220908
+mas "Kindle", id: 302584613
