@@ -399,6 +399,14 @@ defaults write com.apple.menuextra.clock ShowDayOfWeek -bool false
 # Add a spacer to the right side of the Dock (where the Trash is)
 #defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
 
+# Menu bar spacing
+defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 6
+defaults -currentHost write -globalDomain NSStatusItemSpacing -int 6
+# remove with
+#defaults -currentHost delete -globalDomain NSStatusItemSelectionPadding
+#defaults -currentHost delete -globalDomain NSStatusItemSpacing
+
+
 # Hot corners
 # Possible values:
 #  0: no-op
