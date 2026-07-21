@@ -400,8 +400,8 @@ defaults write com.apple.menuextra.clock ShowDayOfWeek -bool false
 #defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
 
 # Menu bar spacing
-defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 6
-defaults -currentHost write -globalDomain NSStatusItemSpacing -int 6
+defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 8
+defaults -currentHost write -globalDomain NSStatusItemSpacing -int 7
 # remove with
 #defaults -currentHost delete -globalDomain NSStatusItemSelectionPadding
 #defaults -currentHost delete -globalDomain NSStatusItemSpacing
