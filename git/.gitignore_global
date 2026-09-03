@@ -3,3 +3,4 @@
 .DS_Store
 .texpadtmp
 .texpadtmp/
+**/.claude/settings.local.json
