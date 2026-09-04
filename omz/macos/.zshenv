@@ -50,6 +50,9 @@ export PATH="$PATH:$GOROOT/bin"
 # jenv: 
 export PATH="$HOME/.jenv/bin:$PATH"
 
+# julia
+export PATH="$PATH:$HOME/.julia/bin"
+
 ## Python
 
 # openblas

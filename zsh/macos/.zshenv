@@ -61,6 +61,8 @@ export PATH="$HOME/.deno/bin:$PATH"
 export PATH="$PATH:$HOME/.ghcup/bin"
 export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 
+export PATH="$PATH:$HOME/.julia/bin"
+
 export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$PATH"
 export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/opt/llvm/lib -L$HOMEBREW_PREFIX/opt/openblas/lib"
 export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/opt/llvm/include -I$HOMEBREW_PREFIX/opt/curl/include -I$HOMEBREW_PREFIX/opt/openblas/include"
@@ -68,5 +70,6 @@ export DYLD_LIBRARY_PATH="$HOMEBREW_PREFIX/lib"
 export LIBRARY_PATH="$HOMEBREW_PREFIX/lib"
 export C_INCLUDE_PATH="$HOMEBREW_PREFIX/include"
 export CPLUS_INCLUDE_PATH="$HOMEBREW_PREFIX/include"
+
 
 export AMPL=/Applications/AMPL

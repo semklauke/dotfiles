@@ -24,6 +24,9 @@ export CPPFLAGS="-I/usr/local/opt/openssl@3/include"
 # lua OpenSSL
 export OPENSSL_DIR=/usr/local/opt/openssl@3/
 
+# julia
+export PATH="$PATH:$HOME/.julia/bin"
+
 . "$HOME/.cargo/env"
 export PATH="/usr/local/bin/:${PATH}"
 export PATH="$HOME/.local/bin:$PATH"

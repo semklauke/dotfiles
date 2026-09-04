@@ -84,6 +84,7 @@ brew "wakeonlan"
 brew "pandoc"
 brew "readline"
 brew "z3"
+brew "git-filter-repo"
 brew "simnalamburt/x/totp", args: ["build-from-source"]
 
 ############

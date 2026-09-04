@@ -43,6 +43,9 @@ export PATH="$HOME/.jenv/bin:$PATH"
 # GO
 export PATH="$PATH:/usr/local/go/bin"
 
+# Julia
+export PATH="$PATH:$HOME/.julia/bin"
+
 # lang
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
