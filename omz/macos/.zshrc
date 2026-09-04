@@ -59,6 +59,16 @@ alias netstatus="networkstatus"
 # open website
 function openw() { open "http://$@"; }
 
+# sublime merge: open a folder (default: current one)
+function sub() {
+    local target=${1:-.}
+    if (( $+commands[smerge] )); then
+        smerge "$target"
+    else
+        open -a "Sublime Merge" "$target"
+    fi
+}
+
 # git
 function openghub() { open $(git remote get-url ${1:-origin}) ;}
 function cloneghub() { git clone git@github.com:${1}.git ${2} ${3} ; }

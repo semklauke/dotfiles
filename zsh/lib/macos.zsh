@@ -177,3 +177,13 @@ freespace() {
     fi
     diskutil secureErase freespace 0 "$1"
 }
+
+# Open a folder (default: current one) in Sublime Merge.
+sub() {
+    local target=${1:-.}
+    if (( $+commands[smerge] )); then
+        smerge "$target"
+    else
+        open -a "Sublime Merge" "$target"
+    fi
+}
