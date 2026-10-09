@@ -3,7 +3,7 @@
 # Also inbetween semester
 # 
 
-export CURRENT_SEMESTER=18;
+export CURRENT_SEMESTER=19;
 function getCourseFolderName() {
     case $1 in
         progra)             echo "Programmierung" ;;
@@ -39,7 +39,6 @@ function getCourseFolderName() {
         pdp)                echo "PDP" ;;
         datkom)             echo "Datenkommunikation und Sicherheit" ;;
         lp)                 echo "Logikprogrammierung" ;;
-        or)                 echo "Operations Research" ;;
         cc)                 echo "Compilerbau" ;;
         rewe)               echo "Buchführung und internes Rechungswesen" ;;
         elehre)             echo "Entscheidungslehre" ;;
@@ -48,15 +47,6 @@ function getCourseFolderName() {
         pca)                echo "PerformanceCorrectnessAnalysisParallelPrograms" ;;
         emsys)              echo "Embedded Systems" ;;
         malo)               echo "Mathematische Logik" ;;
-        hiwi)               echo "../HiWi-OR" ;;
-        hiwi-or)            echo "../HiWi-OR" ;;
-        hiwi-or1)           echo "../HiWi-OR/WS25-OR1" ;;
-        hiwi-qm)            echo "../HiWi-OR/SS26-QM" ;;
-        hiwi-qm-26)         echo "../HiWi-OR/SS26-QM" ;;
-        qm)                 echo "../HiWi-OR/SS26-QM" ;;
-        hiwi-qm-25)         echo "../HiWi-OR/SS25-QM" ;;
-        pmi)                echo "../HiWi-PMI" ;;
-        hiwi-pmi)           echo "../HiWi-PMI" ;;
         hpc)                echo "HPC" ;;
         iai)                echo "Introduction to Artificial Intelligence" ;;
         ai)                 echo "Introduction to Artificial Intelligence" ;;
@@ -73,11 +63,7 @@ function getCourseFolderName() {
         bpi)                echo "Business Process Intelligence";;
         fp)                 echo "Functional Programming";;
         qc)                 echo "Introduction to Quantum Computing";;
-        pom)                echo "Practical Optimization with Modeling Languages";;
         spa)                echo "Static Program Analysis";;
-        or1)                echo "Operations Research 1" ;;
-        or2)                echo "Operations Research 2" ;;
-        or3)                echo "Operations Research 3" ;;
         mc)                 echo "Model Checking" ;;
         ml)                 echo "Machine Learning" ;;
         svs)                echo "Semantics and Verification of Software" ;;
@@ -87,7 +73,6 @@ function getCourseFolderName() {
         english)            echo "Sprachkurs" ;;
         aml)                echo "Advanced Machine Learning" ;;
         ml2)                echo "Advanced Machine Learning" ;;
-        orp)                echo "OR Praktikum" ;;
         aos)                echo "Advanced Operating Systems" ;;
         pqc)                echo "Post-quantum cryptography" ;;
         sat)                echo "Satisfiability Checking" ;;
@@ -104,6 +89,25 @@ function getCourseFolderName() {
         ait)                echo "Advanced Internet Technology" ;;
         pet)                echo "Privacy Enhancing Technologies for Data Science" ;;
         sem)                echo "Seminar Satisfiability Checking" ;;
+        ro)                 echo "Robust Optimization" ;;
+        crypto)             echo "Cryptography" ;;
+        pom)                echo "Practical Optimization with Modeling Languages";;
+        orp)                echo "OR Praktikum" ;;
+        or)                 echo "Operations Research" ;;
+        or1)                echo "Operations Research 1" ;;
+        or2)                echo "Operations Research 2" ;;
+        or3)                echo "Operations Research 3" ;;
+        hiwi)               echo "../HiWi-OR" ;;
+        hiwi-or)            echo "../HiWi-OR" ;;
+        hiwi-or1)           echo "../HiWi-OR/WS26-OR1" ;;
+        hiwi-or1-25)        echo "../HiWi-OR/WS25-OR1" ;;
+        hiwi-or1-26)        echo "../HiWi-OR/WS26-OR1" ;;
+        hiwi-qm)            echo "../HiWi-OR/SS26-QM" ;;
+        hiwi-qm-25)         echo "../HiWi-OR/SS25-QM" ;;
+        hiwi-qm-26)         echo "../HiWi-OR/SS26-QM" ;;
+        qm)                 echo "../HiWi-OR/SS26-QM" ;;
+        pmi)                echo "../HiWi-PMI" ;;
+        hiwi-pmi)           echo "../HiWi-PMI" ;;
         *)                  echo "404" ;;
     esac
 }
